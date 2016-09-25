@@ -1,5 +1,5 @@
-### A keni ligjerata?
 Assignment 2 for Mobile Development Theory
+### A keni ligjerata?
 
 # Description
 Back at our university in Kosovo the library has a limited number of seats and most

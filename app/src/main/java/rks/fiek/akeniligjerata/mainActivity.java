@@ -22,7 +22,7 @@ public class mainActivity extends AppCompatActivity
 
     public void btnMapOnClick(View v)
     {
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, mapsActivity.class);
         startActivity(intent);
     }
 

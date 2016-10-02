@@ -11,11 +11,6 @@ public class planActivity extends AppCompatActivity implements View.OnTouchListe
 {
     //ImageView imageView;
 
-    float downx = 0;
-    float downy = 0;
-    float upx = 0;
-    float upy = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,7 +25,7 @@ public class planActivity extends AppCompatActivity implements View.OnTouchListe
         final int action = motionEvent.getAction();
         final int evX = (int) motionEvent.getX();
         final int evY = (int) motionEvent.getY();
-        
+
         switch (action)
         {
             case MotionEvent.ACTION_UP:

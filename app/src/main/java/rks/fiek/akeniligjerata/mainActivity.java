@@ -20,4 +20,10 @@ public class mainActivity extends AppCompatActivity
         startActivity(intPlan);
     }
 
+    public void btnMapOnClick(View v)
+    {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -3,4 +3,5 @@
     <string name="do_you_have_classes">Do you have classes?</string>
     <string name="find_me_a_room">Find me a room</string>
     <string name="take_me_to_fiek">Take me to FIEK</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

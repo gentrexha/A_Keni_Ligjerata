@@ -33,5 +33,6 @@
         android:layout_marginBottom="162dp"
         android:id="@+id/btnMap"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/btnRoom" />
+        android:layout_alignStart="@+id/btnRoom"
+        android:onClick="btnMapOnClick"/>
 </RelativeLayout>

@@ -10,5 +10,6 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/fourth_floor"/>
+        android:src="@mipmap/fourth_floor_"
+        android:id="@+id/imgview" />
 </RelativeLayout>

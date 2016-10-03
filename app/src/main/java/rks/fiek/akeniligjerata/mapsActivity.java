@@ -62,8 +62,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
     Marker mCurrLocationMarker;
     // Stores parameters for requests to the FusedLocationProviderApi.
     LocationRequest mLocationRequest;
-    // Bundle to pass variables to next activity
-    private Bundle objBundle = new Bundle();
+    // App-defined int constant
     private int locationRequestCode;
 
     @Override

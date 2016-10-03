@@ -99,15 +99,6 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         createLocationRequest();
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
@@ -172,7 +163,8 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
             StringBuffer sb = new StringBuffer();
 
             String line = "";
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null)
+            {
                 sb.append(line);
             }
 
@@ -180,9 +172,13 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.d("downloadUrl", data.toString());
             br.close();
 
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             Log.d("Exception", e.toString());
-        } finally {
+        }
+        finally
+        {
             iStream.close();
             urlConnection.disconnect();
         }
@@ -194,23 +190,28 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
     {
 
         @Override
-        protected String doInBackground(String... url) {
+        protected String doInBackground(String... url)
+        {
 
             // For storing data from web service
             String data = "";
 
-            try {
+            try
+            {
                 // Fetching the data from web service
                 data = downloadUrl(url[0]);
                 Log.d("Background Task data", data.toString());
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Log.d("Background Task", e.toString());
             }
             return data;
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(String result)
+        {
             super.onPostExecute(result);
 
             ParserTask parserTask = new ParserTask();
@@ -229,12 +230,14 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Parsing the data in non-ui thread
         @Override
-        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData)
+        {
 
             JSONObject jObject;
             List<List<HashMap<String, String>>> routes = null;
 
-            try {
+            try
+            {
                 jObject = new JSONObject(jsonData[0]);
                 Log.d("ParserTask",jsonData[0].toString());
                 DataParser parser = new DataParser();
@@ -245,7 +248,9 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("ParserTask","Executing routes");
                 Log.d("ParserTask",routes.toString());
 
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Log.d("ParserTask",e.toString());
                 e.printStackTrace();
             }
@@ -260,7 +265,8 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
             PolylineOptions lineOptions = null;
 
             // Traversing through all the routes
-            for (int i = 0; i < result.size(); i++) {
+            for (int i = 0; i < result.size(); i++)
+            {
                 points = new ArrayList<>();
                 lineOptions = new PolylineOptions();
 
@@ -288,10 +294,12 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             // Drawing polyline in the Google Map for the i-th route
-            if(lineOptions != null) {
+            if(lineOptions != null)
+            {
                 mMap.addPolyline(lineOptions);
             }
-            else {
+            else
+            {
                 Log.d("onPostExecute","without Polylines drawn");
             }
         }
@@ -423,19 +431,20 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
-        TextView textView = (TextView) findViewById(R.id.txtDistance);
+        /*TextView textView = (TextView) findViewById(R.id.txtDistance);
         String TEXT = "The distance airline between your current location and Faculty of Electrical & Computer Engineering is: ";
         Double Distance = meterDistanceBetweenPoints(42.648802, 21.167531, mLastLocation.getLatitude(), mLastLocation.getLongitude());
         Distance = Double.parseDouble(new DecimalFormat("##.####").format(Distance));
 
         TEXT += "" + Distance + "km";
-        textView.setText(TEXT);
+        textView.setText(TEXT);*/
 
 
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(ConnectionResult connectionResult)
+    {
 
     }
 
@@ -485,7 +494,6 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
             alert.show();
         }
     }
-    //koment palidhje
 
     private double meterDistanceBetweenPoints(double lat_a, double lng_a, double lat_b, double lng_b)
     {

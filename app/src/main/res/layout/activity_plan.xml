@@ -7,18 +7,17 @@
     android:layout_height="match_parent"
     tools:context="rks.fiek.akeniligjerata.planActivity">
 
-    <ImageView
+    <rks.fiek.akeniligjerata.TouchImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/fourth_floor_area"
         android:id="@+id/imgvPlan_Area" />
 
-    <ImageView
+    <rks.fiek.akeniligjerata.TouchImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@mipmap/fourth_floor_"
         android:id="@+id/imgvPlan" />
-
 
 </RelativeLayout>

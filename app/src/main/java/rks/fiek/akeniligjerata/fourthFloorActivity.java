@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,8 +12,8 @@ import android.widget.Toast;
 
 public class fourthFloorActivity extends AppCompatActivity {
 
-    TouchImageView imgv4thFloor;
-    TouchImageView imgv4thFloor_Area;
+    ImageView imgv4thFloor;
+    ImageView imgv4thFloor_Area;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,22 +24,8 @@ public class fourthFloorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fourthfloor);
 >>>>>>> origin/master:app/src/main/java/rks/fiek/akeniligjerata/fourthFloorActivity.java
 
-        imgv4thFloor = (TouchImageView)findViewById(R.id.imgvPlan);
-        imgv4thFloor_Area = (TouchImageView)findViewById(R.id.imgvPlan_Area);
-
-        imgv4thFloor.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgv4thFloor_Area.setZoom(imgv4thFloor);
-            }
-        });
-
-        imgv4thFloor_Area.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgv4thFloor.setZoom(imgv4thFloor_Area);
-            }
-        });
+        imgv4thFloor = (ImageView)findViewById(R.id.imgvPlan);
+        imgv4thFloor_Area = (ImageView)findViewById(R.id.imgvPlan_Area);
 
 <<<<<<< HEAD:app/src/main/java/rks/fiek/akeniligjerata/planActivity.java
 
@@ -54,7 +41,7 @@ public class fourthFloorActivity extends AppCompatActivity {
                 int touch_color = getHotspotColor(R.id.imgvPlan_Area,x,y);
                 int tolerance = 25;
                 if (closeMatch(Color.BLUE, touch_color,tolerance))
-                    Toast.makeText(getApplicationContext(),"Pressed a blue box!",Toast.LENGTH_LONG).show();
+                    Log.d("TOUCH","Touched the screen at"+x+" and "+y);
                 return true;
             }
         });

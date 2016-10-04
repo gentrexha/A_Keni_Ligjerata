@@ -21,7 +21,7 @@ class DBHelper extends SQLiteOpenHelper {
     private static final String CLASSES_TABLE_NAME = "classes";
     private static final String CLASSES_COLUMN_ID = "_id";
     public static final String CLASSES_COLUMN_CLASSNUMBER = "classnumber";
-    public static final String CLASSES_COLUMN_NAME = "name";
+    public static final String CLASSES_COLUMN_NAME = "classname";
     public static final String CLASSES_COLUMN_STARTTIME = "starttime";
     public static final String CLASSES_COLUMN_ENDTIME = "endtime";
 
@@ -39,11 +39,11 @@ class DBHelper extends SQLiteOpenHelper {
         );
     }
 
-    public void insertClass(String classnumber, String name, String starttime, String endtime) {
+    public void insertClass(String classnumber, String classname, String starttime, String endtime) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CLASSES_COLUMN_CLASSNUMBER, classnumber);
-        contentValues.put(CLASSES_COLUMN_NAME, name);
+        contentValues.put(CLASSES_COLUMN_NAME, classname);
         contentValues.put(CLASSES_COLUMN_STARTTIME, starttime);
         contentValues.put(CLASSES_COLUMN_ENDTIME, endtime);
         db.insert(CLASSES_TABLE_NAME, null, contentValues);

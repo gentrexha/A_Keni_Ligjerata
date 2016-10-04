@@ -1,8 +1,14 @@
 package rks.fiek.akeniligjerata;
 
+<<<<<<< HEAD
 import android.content.Intent;
+=======
+import android.content.Context;
+>>>>>>> origin/master
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +37,7 @@ public class fourthFloorActivity extends AppCompatActivity {
                 final int y = (int)motionEvent.getY();
                 int touch_color = getHotspotColor(R.id.imgvPlan_Area,x,y);
                 int tolerance = 25;
+<<<<<<< HEAD
                 if (closeMatch(Color.BLUE, touch_color,tolerance))
                 {
                     Log.d("TOUCH","Touched the screen at"+x+" and "+y);
@@ -39,6 +46,13 @@ public class fourthFloorActivity extends AppCompatActivity {
 
                 }
                 return true;
+=======
+                if (closeMatch(Color.BLUE, touch_color,tolerance)) {
+                    Log.d("TOUCH", "Touched the screen at" + x + " and " + y);
+                    return true;
+                }
+                return false;
+>>>>>>> origin/master
             }
         });
     }
@@ -59,5 +73,11 @@ public class fourthFloorActivity extends AppCompatActivity {
         if ( Math.abs (Color.blue (color1) - Color.blue (color2)) > tolerance )
             return false;
         return true;
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }

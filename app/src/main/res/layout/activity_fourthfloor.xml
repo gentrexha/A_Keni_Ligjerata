@@ -5,7 +5,7 @@
     android:id="@+id/activity_plan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="rks.fiek.akeniligjerata.planActivity">
+    tools:context="rks.fiek.akeniligjerata.fourthFloorActivity">
 
     <rks.fiek.akeniligjerata.TouchImageView
         android:layout_width="match_parent"
@@ -19,11 +19,5 @@
         android:layout_height="match_parent"
         android:src="@mipmap/fourth_floor_"
         android:id="@+id/imgvPlan" />
-<!--
-    <rks.fiek.akeniligjerata.TouchImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/test_availability"
-        android:id="@+id/imgvTest" />
--->
+
 </RelativeLayout>

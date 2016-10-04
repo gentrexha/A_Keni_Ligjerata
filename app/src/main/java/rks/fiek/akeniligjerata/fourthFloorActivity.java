@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class planActivity extends AppCompatActivity {
+public class fourthFloorActivity extends AppCompatActivity {
 
     TouchImageView imgv4thFloor;
     TouchImageView imgv4thFloor_Area;
@@ -17,12 +17,15 @@ public class planActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD:app/src/main/java/rks/fiek/akeniligjerata/planActivity.java
         setContentView(R.layout.activity_plan);
+=======
+        setContentView(R.layout.activity_fourthfloor);
+>>>>>>> origin/master:app/src/main/java/rks/fiek/akeniligjerata/fourthFloorActivity.java
 
         imgv4thFloor = (TouchImageView)findViewById(R.id.imgvPlan);
         imgv4thFloor_Area = (TouchImageView)findViewById(R.id.imgvPlan_Area);
 
-        // Enables that both pictures zoom at the same time
         imgv4thFloor.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
             @Override
             public void onMove() {
@@ -37,15 +40,17 @@ public class planActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD:app/src/main/java/rks/fiek/akeniligjerata/planActivity.java
 
         //
+=======
+>>>>>>> origin/master:app/src/main/java/rks/fiek/akeniligjerata/fourthFloorActivity.java
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent)
             {
                 final int x = (int)motionEvent.getX();
                 final int y = (int)motionEvent.getY();
-                // Toast.makeText(getApplicationContext(),"X= " + x + " and Y=" + y,Toast.LENGTH_SHORT).show();
                 int touch_color = getHotspotColor(R.id.imgvPlan_Area,x,y);
                 int tolerance = 25;
                 if (closeMatch(Color.BLUE, touch_color,tolerance))

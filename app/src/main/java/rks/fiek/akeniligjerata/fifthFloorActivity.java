@@ -8,16 +8,16 @@ import android.widget.ImageView;
 
 public class fifthFloorActivity extends AppCompatActivity {
 
-    TouchImageView imgvFifthFloor;
-    TouchImageView imgvFifthFloorArea;
-    TouchImageView imgvClass507Red;
-    TouchImageView imgvClass507Green;
-    TouchImageView imgvClass511Red;
-    TouchImageView imgvClass511Green;
-    TouchImageView imgvClass521Red;
-    TouchImageView imgvClass521Green;
-    TouchImageView imgvClass526Red;
-    TouchImageView imgvClass526Green;
+    ImageView imgvFifthFloor;
+    ImageView imgvFifthFloorArea;
+    ImageView imgvClass507Red;
+    ImageView imgvClass507Green;
+    ImageView imgvClass511Red;
+    ImageView imgvClass511Green;
+    ImageView imgvClass521Red;
+    ImageView imgvClass521Green;
+    ImageView imgvClass526Red;
+    ImageView imgvClass526Green;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,96 +25,18 @@ public class fifthFloorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fifth_floor);
 
-        imgvFifthFloor = (TouchImageView) findViewById(R.id.imgvFifth);
-        imgvFifthFloorArea = (TouchImageView) findViewById(R.id.imgvFifthArea);
-        imgvClass507Red = (TouchImageView) findViewById(R.id.class507Red);
-        imgvClass507Green = (TouchImageView) findViewById(R.id.class507Green);
-        imgvClass511Red = (TouchImageView) findViewById(R.id.class511Red);
-        imgvClass511Green = (TouchImageView) findViewById(R.id.class511Green);
-        imgvClass521Red = (TouchImageView) findViewById(R.id.class521Red);
-        imgvClass521Green = (TouchImageView) findViewById(R.id.class521Green);
-        imgvClass526Red = (TouchImageView) findViewById(R.id.class526Red);
-        imgvClass526Green = (TouchImageView) findViewById(R.id.class526Green);
+        imgvFifthFloor = (ImageView) findViewById(R.id.imgvFifth);
+        imgvFifthFloorArea = (ImageView) findViewById(R.id.imgvFifthArea);
+        imgvClass507Red = (ImageView) findViewById(R.id.class507Red);
+        imgvClass507Green = (ImageView) findViewById(R.id.class507Green);
+        imgvClass511Red = (ImageView) findViewById(R.id.class511Red);
+        imgvClass511Green = (ImageView) findViewById(R.id.class511Green);
+        imgvClass521Red = (ImageView) findViewById(R.id.class521Red);
+        imgvClass521Green = (ImageView) findViewById(R.id.class521Green);
+        imgvClass526Red = (ImageView) findViewById(R.id.class526Red);
+        imgvClass526Green = (ImageView) findViewById(R.id.class526Green);
 
-        imgvFifthFloor.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloorArea.setZoom(imgvFifthFloor);
-                imgvClass507Red.setZoom(imgvFifthFloor);
-                imgvClass507Green.setZoom(imgvFifthFloor);
-                imgvClass511Red.setZoom(imgvFifthFloor);
-                imgvClass511Green.setZoom(imgvFifthFloor);
-                imgvClass521Red.setZoom(imgvFifthFloor);
-                imgvClass521Green.setZoom(imgvFifthFloor);
-                imgvClass526Red.setZoom(imgvFifthFloor);
-                imgvClass526Green.setZoom(imgvFifthFloor);
-            }
-        });
-
-        imgvFifthFloorArea.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloor.setZoom(imgvFifthFloorArea);
-            }
-        });
-
-        imgvClass507Red.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloor.setZoom(imgvClass507Red);
-                imgvFifthFloorArea.setZoom(imgvClass507Red);
-            }
-        });
-
-        imgvClass507Green.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloor.setZoom(imgvClass507Green);
-            }
-        });
-
-        imgvClass511Red.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloor.setZoom(imgvClass511Red);
-                imgvFifthFloorArea.setZoom(imgvClass511Red);
-            }
-        });
-
-        imgvClass511Green.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloor.setZoom(imgvClass511Green);
-            }
-        });
-
-        imgvClass521Red.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloor.setZoom(imgvClass521Red);
-            }
-        });
-
-        imgvClass521Green.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloor.setZoom(imgvClass521Green);
-            }
-        });
-
-        imgvClass526Red.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloor.setZoom(imgvClass526Red);
-            }
-        });
-
-        imgvClass526Green.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgvFifthFloor.setZoom(imgvClass526Green);
-            }
-        });
+        
     }
 
     public int getHotspotColor (int hotspotId, int x, int y) {

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class fourthFloorActivity extends AppCompatActivity {
 
@@ -18,8 +17,8 @@ public class fourthFloorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fourthfloor);
-        
+        setContentView(R.layout.activity_fourth_floor);
+
         imgv4thFloor = (ImageView)findViewById(R.id.imgvPlan);
         imgv4thFloor_Area = (ImageView)findViewById(R.id.imgvPlan_Area);
 

@@ -52,42 +52,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:src="@mipmap/class_401_red"
-        android:id="@+id/imgvClass401Red"/>
+        android:src="@mipmap/class_411_green"
+        android:id="@+id/imgvClass411Green"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:src="@mipmap/class_401_red"
-        android:id="@+id/imgvClass401Red"/>
+        android:src="@mipmap/class_411_red"
+        android:id="@+id/imgvClass411Red"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:src="@mipmap/class_401_red"
-        android:id="@+id/imgvClass401Red"/>
+        android:src="@mipmap/class_414_green"
+        android:id="@+id/imgvClass414Green"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:src="@mipmap/class_401_red"
-        android:id="@+id/imgvClass401Red"/>
+        android:src="@mipmap/class_414_red"
+        android:id="@+id/imgvClass414Red"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:src="@mipmap/class_401_red"
-        android:id="@+id/imgvClass401Red"/>
+        android:src="@mipmap/class_415_green"
+        android:id="@+id/imgvClass415Green"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:src="@mipmap/class_401_red"
-        android:id="@+id/imgvClass401Red"/>
+        android:src="@mipmap/class_415_red"
+        android:id="@+id/imgvClass415Red"/>
 
 </RelativeLayout>

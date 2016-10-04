@@ -18,7 +18,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:src="@mipmap/fifth_floor_area"
         android:id="@+id/imgvFifthArea"
         />
@@ -27,7 +27,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:src="@mipmap/class_507_red"
         android:id="@+id/class507Red"
         />

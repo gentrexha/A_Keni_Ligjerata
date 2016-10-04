@@ -1,9 +1,13 @@
 package rks.fiek.akeniligjerata;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 
 public class fifthFloorActivity extends AppCompatActivity {
@@ -36,7 +40,26 @@ public class fifthFloorActivity extends AppCompatActivity {
         imgvClass526Red = (ImageView) findViewById(R.id.class526Red);
         imgvClass526Green = (ImageView) findViewById(R.id.class526Green);
 
-        
+        imgvFifthFloor.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent)
+            {
+                final int x = (int)motionEvent.getX();
+                final int y = (int)motionEvent.getY();
+                int touch_color = getHotspotColor(R.id.imgvFifthArea,x,y);
+                int tolerance = 25;
+                if (closeMatch(Color.BLUE, touch_color,tolerance))
+                {
+                    Log.d("TOUCH","Touched the screen at"+x+" and "+y);
+                    Intent intent = new Intent(getApplicationContext(), fourthFloorActivity.class);
+                    startActivity(intent);
+
+                }
+                return true;
+            }
+        });
+
+
     }
 
     public int getHotspotColor (int hotspotId, int x, int y) {

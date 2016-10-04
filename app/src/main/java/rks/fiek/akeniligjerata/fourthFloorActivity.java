@@ -1,5 +1,6 @@
 package rks.fiek.akeniligjerata;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +32,12 @@ public class fourthFloorActivity extends AppCompatActivity {
                 int touch_color = getHotspotColor(R.id.imgvPlan_Area,x,y);
                 int tolerance = 25;
                 if (closeMatch(Color.BLUE, touch_color,tolerance))
+                {
                     Log.d("TOUCH","Touched the screen at"+x+" and "+y);
+                    Intent intent = new Intent(getApplicationContext(), fifthFloorActivity.class);
+                    startActivity(intent);
+
+                }
                 return true;
             }
         });

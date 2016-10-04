@@ -23,7 +23,7 @@ public class mainActivity extends AppCompatActivity
 
     public void btnPlanOnClick(View v)
     {
-        Intent intPlan = new Intent(this, planActivity.class);
+        Intent intPlan = new Intent(this, fifthFloorActivity.class);
         startActivity(intPlan);
     }
 

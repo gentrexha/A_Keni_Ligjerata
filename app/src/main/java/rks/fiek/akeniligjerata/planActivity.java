@@ -13,7 +13,6 @@ public class planActivity extends AppCompatActivity {
 
     TouchImageView imgv4thFloor;
     TouchImageView imgv4thFloor_Area;
-    TouchImageView imgvTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +20,12 @@ public class planActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plan);
         imgv4thFloor = (TouchImageView)findViewById(R.id.imgvPlan);
         imgv4thFloor_Area = (TouchImageView)findViewById(R.id.imgvPlan_Area);
-        imgvTest = (TouchImageView)findViewById(R.id.imgvTest);
 
         // Enables that both pictures zoom at the same time
         imgv4thFloor.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
             @Override
             public void onMove() {
                 imgv4thFloor_Area.setZoom(imgv4thFloor);
-                imgvTest.setZoom(imgv4thFloor);
             }
         });
 
@@ -39,14 +36,6 @@ public class planActivity extends AppCompatActivity {
             }
         });
 
-        imgvTest.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                imgv4thFloor.setZoom(imgvTest);
-            }
-        });
-
-        //
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent)

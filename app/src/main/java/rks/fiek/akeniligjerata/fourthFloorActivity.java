@@ -18,20 +18,11 @@ public class fourthFloorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD:app/src/main/java/rks/fiek/akeniligjerata/planActivity.java
-        setContentView(R.layout.activity_plan);
-=======
         setContentView(R.layout.activity_fourthfloor);
->>>>>>> origin/master:app/src/main/java/rks/fiek/akeniligjerata/fourthFloorActivity.java
-
+        
         imgv4thFloor = (ImageView)findViewById(R.id.imgvPlan);
         imgv4thFloor_Area = (ImageView)findViewById(R.id.imgvPlan_Area);
 
-<<<<<<< HEAD:app/src/main/java/rks/fiek/akeniligjerata/planActivity.java
-
-        //
-=======
->>>>>>> origin/master:app/src/main/java/rks/fiek/akeniligjerata/fourthFloorActivity.java
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent)

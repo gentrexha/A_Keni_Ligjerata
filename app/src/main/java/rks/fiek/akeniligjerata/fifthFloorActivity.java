@@ -43,17 +43,23 @@ public class fifthFloorActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent)
             {
-                final int x = (int)motionEvent.getX();
-                final int y = (int)motionEvent.getY();
-                int touch_color = getHotspotColor(R.id.imgvFifthArea,x,y);
-                int tolerance = 25;
-                if (closeMatch(Color.BLUE, touch_color,tolerance)) {
-                    Log.d("TOUCH","Touched the screen at"+x+" and "+y);
-                    return true;
-                    // Intent intent = new Intent(getApplicationContext(), fourthFloorActivity.class);
-                    // startActivity(intent);
+
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        final int x = (int) motionEvent.getX();
+                        final int y = (int) motionEvent.getY();
+                        int touch_color = getHotspotColor(R.id.imgvFifthArea, x, y);
+                        int tolerance = 25;
+                        if (closeMatch(Color.BLUE, touch_color, tolerance)) {
+                            Log.d("TOUCH", "Touched the screen at" + x + " and " + y);
+                            Intent intent = new Intent(getApplicationContext(), fourthFloorActivity.class);
+                            startActivity(intent);
+                        }
+                        break;
                 }
-                return false;
+                return true;
             }
         });
 

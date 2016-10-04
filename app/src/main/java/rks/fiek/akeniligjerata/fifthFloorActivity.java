@@ -24,8 +24,7 @@ public class fifthFloorActivity extends AppCompatActivity {
     ImageView imgvClass526Green;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fifth_floor);
 
@@ -48,14 +47,13 @@ public class fifthFloorActivity extends AppCompatActivity {
                 final int y = (int)motionEvent.getY();
                 int touch_color = getHotspotColor(R.id.imgvFifthArea,x,y);
                 int tolerance = 25;
-                if (closeMatch(Color.BLUE, touch_color,tolerance))
-                {
+                if (closeMatch(Color.BLUE, touch_color,tolerance)) {
                     Log.d("TOUCH","Touched the screen at"+x+" and "+y);
-                    Intent intent = new Intent(getApplicationContext(), fourthFloorActivity.class);
-                    startActivity(intent);
-
+                    return true;
+                    // Intent intent = new Intent(getApplicationContext(), fourthFloorActivity.class);
+                    // startActivity(intent);
                 }
-                return true;
+                return false;
             }
         });
 

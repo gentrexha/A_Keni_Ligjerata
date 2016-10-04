@@ -1,10 +1,7 @@
 package rks.fiek.akeniligjerata;
 
-<<<<<<< HEAD
 import android.content.Intent;
-=======
 import android.content.Context;
->>>>>>> origin/master
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -31,28 +28,19 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent)
-            {
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 final int x = (int)motionEvent.getX();
                 final int y = (int)motionEvent.getY();
                 int touch_color = getHotspotColor(R.id.imgvPlan_Area,x,y);
                 int tolerance = 25;
-<<<<<<< HEAD
-                if (closeMatch(Color.BLUE, touch_color,tolerance))
-                {
+                if (closeMatch(Color.BLUE, touch_color,tolerance)) {
                     Log.d("TOUCH","Touched the screen at"+x+" and "+y);
-                    Intent intent = new Intent(getApplicationContext(), fifthFloorActivity.class);
-                    startActivity(intent);
+                    return true;
+                    // Intent intent = new Intent(getApplicationContext(), fifthFloorActivity.class);
+                    // startActivity(intent);
 
                 }
-                return true;
-=======
-                if (closeMatch(Color.BLUE, touch_color,tolerance)) {
-                    Log.d("TOUCH", "Touched the screen at" + x + " and " + y);
-                    return true;
-                }
                 return false;
->>>>>>> origin/master
             }
         });
     }

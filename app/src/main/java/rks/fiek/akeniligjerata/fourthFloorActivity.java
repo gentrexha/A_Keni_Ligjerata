@@ -1,17 +1,21 @@
 package rks.fiek.akeniligjerata;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+
+import org.json.JSONObject;
 
 public class fourthFloorActivity extends AppCompatActivity {
 
@@ -73,5 +77,27 @@ public class fourthFloorActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    public class RetrieveSchedule extends AsyncTask<Void,Void,JSONObject> {
+
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = progressDialog.show(fourthFloorActivity.this, "Loading schedule...","TEST", true);
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            progressDialog.dismiss();
+        }
     }
 }

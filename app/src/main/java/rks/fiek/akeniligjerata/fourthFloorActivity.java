@@ -64,6 +64,21 @@ public class fourthFloorActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), fifthFloorActivity.class);
                             startActivity(intent);
                         }
+                        else if (closeMatch(Color.RED, touch_color,tolerance)) {
+
+                        }
+                        else if (closeMatch(Color.YELLOW, touch_color,tolerance)) {
+
+                        }
+                        else if (closeMatch(Color.GREEN, touch_color,tolerance)) {
+
+                        }
+                        else if (closeMatch(Color.BLACK, touch_color,tolerance)) {
+
+                        }
+                        else if (closeMatch(Color.WHITE, touch_color,tolerance)) {
+
+                        }
                         break;
                 }
                 return true;

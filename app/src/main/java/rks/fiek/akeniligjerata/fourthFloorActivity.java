@@ -25,13 +25,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class fourthFloorActivity extends AppCompatActivity {
 
+    // ImageViews
     ImageView imgv4thFloor;
     ImageView imgv4thFloor_Area;
+
     private static final String dbURL = "http://200.6.254.247/my-service.php";
 
     @Override
@@ -41,7 +44,7 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         imgv4thFloor = (ImageView)findViewById(R.id.imgvPlan);
         imgv4thFloor_Area = (ImageView)findViewById(R.id.imgvPlan_Area);
-        
+
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -88,14 +91,14 @@ public class fourthFloorActivity extends AppCompatActivity {
 
     public class RetrieveSchedule extends AsyncTask<Void,Void,JSONObject> {
 
-        ProgressDialog progressDialog;
+        // ProgressDialog progressDialog;
         Exception mException;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             this.mException = null;
-            progressDialog = progressDialog.show(fourthFloorActivity.this, "Loading schedule...","TEST", true);
+            // progressDialog = progressDialog.show(fourthFloorActivity.this, "Loading schedule...","TEST", true);
         }
 
         @Override
@@ -146,14 +149,22 @@ public class fourthFloorActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject result) {
             super.onPostExecute(result);
-            progressDialog.dismiss();
+            // progressDialog.dismiss();
             if (this.mException != null) {
-                Log.println(Log.ERROR,"JSON",this.mException.toString());
+                Log.e("JSON Exception",this.mException.toString());
+            }
+            try {
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("schedule_json_data.txt", Context.MODE_PRIVATE));
+                outputStreamWriter.write(result.toString());
+                outputStreamWriter.close();
+            }
+            catch (IOException e) {
+                Log.e("Exception", "File write failed: " + e.toString());
             }
             try {
                 JSONArray objJSONArray = result.optJSONArray("411");
                 JSONObject objJSONObject = objJSONArray.getJSONObject(0);
-                Toast.makeText(getApplicationContext(),objJSONObject.getString("classname"),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),objJSONObject.getString("classname"),Toast.LENGTH_SHORT).show();
             }
             catch (JSONException e) {
                 e.printStackTrace();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">A keni ligjerata?</string>
-    <string name="do_you_have_classes">Do you have classes?</string>
+    <string name="do_you_have_classes">A keni ligjerata?</string>
     <string name="find_me_a_room">Gjej nje dhome!</string>
     <string name="take_me_to_fiek">Dergome ne FIEK</string>
     <string name="title_activity_maps">Harta</string>

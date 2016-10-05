@@ -14,16 +14,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 // http://www.androidauthority.com/use-sqlite-store-data-app-599743/
 
 class DBHelper extends SQLiteOpenHelper {
-    // Variables for the database table
-    private static final String DB_NAME = "schedule.db";
-    private static final int DB_VERSION = 1;
+    private static final String DB_NAME = "akeniligjerata.db";
+    private static final int DB_VERSION = 2;
 
-    private static final String CLASSES_TABLE_NAME = "classes";
-    private static final String CLASSES_COLUMN_ID = "_id";
-    public static final String CLASSES_COLUMN_CLASSNUMBER = "classnumber";
-    public static final String CLASSES_COLUMN_NAME = "classname";
-    public static final String CLASSES_COLUMN_STARTTIME = "starttime";
-    public static final String CLASSES_COLUMN_ENDTIME = "endtime";
+    private static final String SCHEDULE_TABLE_NAME = "schedule";
+    private static final String SCHEDULE_COLUMN_ID = "_id";
+    private static final String SCHEDULE_COLUMN_DAY = "day";
+    private static final String SCHEDULE_COLUMN_CLASSNUMBER = "classnumber";
+    private static final String SCHEDULE_COLUMN_CLASSNAME = "classname";
+    private static final String SCHEDULE_COLUMN_STARTTIME = "starttime";
+    private static final String SCHEDULE_COLUMN_ENDTIME = "endtime";
 
     public DBHelper(Context context) {
         super(context, DB_NAME , null, DB_VERSION);
@@ -31,33 +31,37 @@ class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + CLASSES_TABLE_NAME + "(" +
-                CLASSES_COLUMN_ID + " INTEGER PRIMARY KEY, " +
-                CLASSES_COLUMN_CLASSNUMBER + " TEXT, " +
-                CLASSES_COLUMN_NAME + " TEXT, " +
-                CLASSES_COLUMN_STARTTIME + " TEXT)"
+        db.execSQL("CREATE TABLE " + SCHEDULE_TABLE_NAME + "(" +
+                SCHEDULE_COLUMN_ID + " INTEGER PRIMARY KEY, " +
+                SCHEDULE_COLUMN_DAY + " TEXT, " +
+                SCHEDULE_COLUMN_CLASSNUMBER + " TEXT, " +
+                SCHEDULE_COLUMN_CLASSNAME + " TEXT, " +
+                SCHEDULE_COLUMN_STARTTIME + " TEXT, " +
+                SCHEDULE_COLUMN_ENDTIME + " TEXT)"
         );
     }
 
-    public void insertClass(String classnumber, String classname, String starttime, String endtime) {
+    public void insertLecture(Lecture lecture) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CLASSES_COLUMN_CLASSNUMBER, classnumber);
-        contentValues.put(CLASSES_COLUMN_NAME, classname);
-        contentValues.put(CLASSES_COLUMN_STARTTIME, starttime);
-        contentValues.put(CLASSES_COLUMN_ENDTIME, endtime);
-        db.insert(CLASSES_TABLE_NAME, null, contentValues);
+        contentValues.put(SCHEDULE_COLUMN_ID, lecture.getId());
+        contentValues.put(SCHEDULE_COLUMN_DAY, lecture.getDay());
+        contentValues.put(SCHEDULE_COLUMN_CLASSNUMBER, lecture.getClassnumber());
+        contentValues.put(SCHEDULE_COLUMN_CLASSNAME, lecture.getClassname());
+        contentValues.put(SCHEDULE_COLUMN_STARTTIME, lecture.getStarttime());
+        contentValues.put(SCHEDULE_COLUMN_ENDTIME, lecture.getStarttime());
+        db.insert(SCHEDULE_TABLE_NAME, null, contentValues);
     }
 
-    public Cursor getAllClasses() {
+    public Cursor getAllLectures() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "SELECT * FROM " + CLASSES_TABLE_NAME, null );
+        return db.rawQuery( "SELECT * FROM " + SCHEDULE_TABLE_NAME, null );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // In case the db needs to upgraded, we just drop and recreate
-        db.execSQL("DROP TABLE IF EXISTS " + CLASSES_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + SCHEDULE_TABLE_NAME);
         onCreate(db);
     }
 }

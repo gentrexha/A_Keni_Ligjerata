@@ -36,6 +36,8 @@ public class fourthFloorActivity extends AppCompatActivity {
     ImageView imgv4thFloor;
     ImageView imgv4thFloor_Area;
 
+    private DBHelper objDB;
+
     private static final String dbURL = "http://200.6.254.247/my-service.php";
 
     @Override
@@ -45,6 +47,7 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         imgv4thFloor = (ImageView)findViewById(R.id.imgvPlan);
         imgv4thFloor_Area = (ImageView)findViewById(R.id.imgvPlan_Area);
+        objDB = new DBHelper(this);
 
         new RetrieveSchedule().execute();
 
@@ -92,13 +95,10 @@ public class fourthFloorActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
-    public class RetrieveSchedule extends AsyncTask<Void,Void,JSONObject> {
+    public class RetrieveSchedule extends AsyncTask<Void,Void,JSONArray> {
 
         // ProgressDialog progressDialog;
         Exception mException;
-        // For the day of the week
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK);
 
         @Override
         protected void onPreExecute() {
@@ -108,14 +108,14 @@ public class fourthFloorActivity extends AppCompatActivity {
         }
 
         @Override
-        protected JSONObject doInBackground(Void... voids) {
+        protected JSONArray doInBackground(Void... voids) {
 
             StringBuilder urlString = new StringBuilder();
             urlString.append(dbURL);
 
             HttpURLConnection objURLConnection = null;
             URL objURL;
-            JSONObject objJSON = null;
+            JSONArray objJSON = null;
             InputStream objInStream = null;
 
             try {
@@ -133,7 +133,7 @@ public class fourthFloorActivity extends AppCompatActivity {
                 {
                     response += line;
                 }
-                objJSON = (JSONObject) new JSONTokener(response).nextValue();
+                objJSON = (JSONArray) new JSONTokener(response).nextValue();
             } catch (Exception e) {
                 this.mException = e;
             }
@@ -153,43 +153,27 @@ public class fourthFloorActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(JSONObject result) {
+        protected void onPostExecute(JSONArray result) {
             super.onPostExecute(result);
             // progressDialog.dismiss();
             if (this.mException != null) {
                 Log.e("JSON Exception",this.mException.toString());
             }
+            // Log.d("JSONARRAY",""+result.length());
             try {
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("schedule_json_data.txt", Context.MODE_PRIVATE));
-                outputStreamWriter.write(result.toString());
-                outputStreamWriter.close();
-            }
-            catch (IOException e) {
-                Log.e("Exception", "File write failed: " + e.toString());
-            }
-            try {
-                JSONObject objJSON411 = result.getJSONObject("Monday");
-                JSONArray objJSONArray411 = objJSON411.optJSONArray("411");
-                JSONObject objTest = objJSONArray411.getJSONObject(0);
-                String test = objTest.getString("classname");
-                Toast.makeText(getApplicationContext(),test,Toast.LENGTH_SHORT).show();
-
-                switch (this.day) {
-                    case Calendar.MONDAY:
-                        break;
-                    case Calendar.TUESDAY:
-                        break;
-                    case Calendar.WEDNESDAY:
-                        break;
-                    case Calendar.THURSDAY:
-                        break;
-                    case Calendar.FRIDAY:
-                        break;
-                    default:
-                        break;
+                for (int i=0;i<result.length();i++) {
+                    JSONObject jsonObjectLecture = result.getJSONObject(i);
+                    int lectureID = jsonObjectLecture.getInt("id");
+                    String lectureDay = jsonObjectLecture.getString("day");
+                    String lectureClassNumber = jsonObjectLecture.getString("classnumber");
+                    String lectureClassName = jsonObjectLecture.getString("classname");
+                    String lectureStartTime = jsonObjectLecture.getString("starttime");
+                    String lectureEndTime = jsonObjectLecture.getString("endtime");
+                    Lecture lecture = new Lecture(lectureID, lectureDay, lectureClassNumber,
+                            lectureClassName, lectureStartTime, lectureEndTime);
+                    objDB.insertLecture(lecture);
                 }
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }

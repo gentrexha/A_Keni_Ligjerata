@@ -1,7 +1,5 @@
 package rks.fiek.akeniligjerata;
 
-import java.sql.Time;
-
 /**
  * Created by GentR on 05-Oct-16.
  */
@@ -11,10 +9,13 @@ public class Lecture {
     private String day;
     private String classnumber;
     private String classname;
-    private Time starttime;
-    private Time endtime;
+    private String starttime;
+    private String endtime;
 
-    public Lecture(String day, String classnumber, String classname, Time starttime, Time endtime) {
+    public Lecture() {
+    }
+
+    public Lecture(String day, String classnumber, String classname, String starttime, String endtime) {
         this.day = day;
         this.classnumber = classnumber;
         this.classname = classname;
@@ -22,7 +23,7 @@ public class Lecture {
         this.endtime = endtime;
     }
 
-    public Lecture(int id, String day, String classnumber, String classname, Time starttime, Time endtime) {
+    public Lecture(int id, String day, String classnumber, String classname, String starttime, String endtime) {
         this.id = id;
         this.day = day;
         this.classnumber = classnumber;
@@ -63,19 +64,19 @@ public class Lecture {
         this.classname = classname;
     }
 
-    public Time getStarttime() {
+    public String getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(Time starttime) {
+    public void setStarttime(String starttime) {
         this.starttime = starttime;
     }
 
-    public Time getEndtime() {
+    public String getEndtime() {
         return endtime;
     }
 
-    public void setEndtime(Time endtime) {
+    public void setEndtime(String endtime) {
         this.endtime = endtime;
     }
 

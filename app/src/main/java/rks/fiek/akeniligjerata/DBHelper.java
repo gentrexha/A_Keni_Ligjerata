@@ -10,6 +10,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 // References:
 // http://www.androidauthority.com/use-sqlite-store-data-app-599743/
 
@@ -56,6 +61,15 @@ class DBHelper extends SQLiteOpenHelper {
     public Cursor getAllLectures() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery( "SELECT * FROM " + SCHEDULE_TABLE_NAME, null );
+    }
+
+    public Cursor getTodayLectures(String classnumber) {
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        String day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select "+SCHEDULE_COLUMN_STARTTIME+","+SCHEDULE_COLUMN_ENDTIME+" where "+SCHEDULE_COLUMN_CLASSNUMBER+
+                "="+classnumber+" and "+SCHEDULE_COLUMN_DAY+"="+day,null);
     }
 
     @Override

@@ -43,7 +43,12 @@
         <activity
             android:name=".mapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".fifthFloorActivity"></activity>
+        <activity android:name=".fifthFloorActivity" />
+        <activity android:name=".class401Activity" />
+        <activity android:name=".class408Activity" />
+        <activity android:name=".class411Activity" />
+        <activity android:name=".class414Activity" />
+        <activity android:name=".class415Activity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--  https://support.google.com/googleplay/android-developer/table/4419860?hl=en
+      https://developer.android.com/training/basics/supporting-devices/languages.html
+      http://www.androidhive.info/2014/07/android-building-multi-language-supported-app/
+-->
 <resources>
     <string name="app_name">A keni ligjerata?</string>
     <string name="do_you_have_classes">Har du klasser?</string>

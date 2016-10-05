@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A keni ligjerata?</string>
+    <string name="do_you_have_classes">Har du klasser?</string>
+    <string name="find_me_a_room">Finne meg et rom!</string>
+    <string name="take_me_to_fiek">Ta meg til FIEK</string>
+    <string name="title_activity_maps">Kart</string>
+</resources>

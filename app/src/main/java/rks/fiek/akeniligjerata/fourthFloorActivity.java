@@ -61,23 +61,28 @@ public class fourthFloorActivity extends AppCompatActivity {
                         int touch_color = getHotspotColor(R.id.imgvPlan_Area,x,y);
                         int tolerance = 25;
                         if (closeMatch(Color.BLUE, touch_color,tolerance)) {
-                            Intent intent = new Intent(getApplicationContext(), fifthFloorActivity.class);
-                            startActivity(intent);
+                            Intent intFifthFloor = new Intent(getApplicationContext(), fifthFloorActivity.class);
+                            startActivity(intFifthFloor);
                         }
-                        else if (closeMatch(Color.RED, touch_color,tolerance)) {
-
+                        if (closeMatch(Color.RED, touch_color,tolerance)) {
+                            Intent int401 = new Intent(getApplicationContext(), class401Activity.class);
+                            startActivity(int401);
                         }
-                        else if (closeMatch(Color.YELLOW, touch_color,tolerance)) {
-
+                        if (closeMatch(Color.YELLOW, touch_color,tolerance)) {
+                            Intent int414 = new Intent(getApplicationContext(), class414Activity.class);
+                            startActivity(int414);
                         }
-                        else if (closeMatch(Color.GREEN, touch_color,tolerance)) {
-
+                        if (closeMatch(Color.GREEN, touch_color,tolerance)) {
+                            Intent int408 = new Intent(getApplicationContext(), class408Activity.class);
+                            startActivity(int408);
                         }
-                        else if (closeMatch(Color.BLACK, touch_color,tolerance)) {
-
+                        if (closeMatch(Color.BLACK, touch_color,tolerance)) {
+                            Intent int411 = new Intent(getApplicationContext(), class411Activity.class);
+                            startActivity(int411);
                         }
-                        else if (closeMatch(Color.WHITE, touch_color,tolerance)) {
-
+                        if (closeMatch(Color.WHITE, touch_color,tolerance)) {
+                            Intent int415 = new Intent(getApplicationContext(), class415Activity.class);
+                            startActivity(int415);
                         }
                         break;
                 }

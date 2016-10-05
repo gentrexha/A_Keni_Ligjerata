@@ -28,6 +28,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 
 public class fourthFloorActivity extends AppCompatActivity {
 
@@ -44,6 +45,8 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         imgv4thFloor = (ImageView)findViewById(R.id.imgvPlan);
         imgv4thFloor_Area = (ImageView)findViewById(R.id.imgvPlan_Area);
+
+        new RetrieveSchedule().execute();
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -93,6 +96,9 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         // ProgressDialog progressDialog;
         Exception mException;
+        // For the day of the week
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
 
         @Override
         protected void onPreExecute() {
@@ -162,9 +168,26 @@ public class fourthFloorActivity extends AppCompatActivity {
                 Log.e("Exception", "File write failed: " + e.toString());
             }
             try {
-                JSONArray objJSONArray = result.optJSONArray("411");
-                JSONObject objJSONObject = objJSONArray.getJSONObject(0);
-                Toast.makeText(getApplicationContext(),objJSONObject.getString("classname"),Toast.LENGTH_SHORT).show();
+                JSONObject objJSON411 = result.getJSONObject("Monday");
+                JSONArray objJSONArray411 = objJSON411.optJSONArray("411");
+                JSONObject objTest = objJSONArray411.getJSONObject(0);
+                String test = objTest.getString("classname");
+                Toast.makeText(getApplicationContext(),test,Toast.LENGTH_SHORT).show();
+
+                switch (this.day) {
+                    case Calendar.MONDAY:
+                        break;
+                    case Calendar.TUESDAY:
+                        break;
+                    case Calendar.WEDNESDAY:
+                        break;
+                    case Calendar.THURSDAY:
+                        break;
+                    case Calendar.FRIDAY:
+                        break;
+                    default:
+                        break;
+                }
             }
             catch (JSONException e) {
                 e.printStackTrace();

@@ -74,7 +74,7 @@ public class fourthFloorActivity extends AppCompatActivity {
                             Intent int408 = new Intent(getApplicationContext(), class408Activity.class);
                             startActivity(int408);
                         }
-                        if (closeMatch(Color.BLACK, touch_color, tolerance)) {
+                        if (closeMatch(Color.MAGENTA, touch_color, tolerance)) {
                             Intent int411 = new Intent(getApplicationContext(), class411Activity.class);
                             startActivity(int411);
                         }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -36,6 +38,7 @@ public class fourthFloorActivity extends AppCompatActivity {
     ImageView imgv4thFloor;
     ImageView imgv4thFloor_Area;
 
+
     private DBHelper objDB;
 
     private static final String dbURL = "http://200.6.254.247/my-service.php";
@@ -53,11 +56,11 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         if (isNetworkAvailable())
         {
-            // KA INTERNET
+            // HAS INTERNET
             objDB.dropLectures();
             new RetrieveSchedule().execute();
         }
-        // SKA INTERNET, DUHET ME NDREQ!!!
+        // NO INTERNET, IMPLEMENT FIX HERE!
         else{
             if (cursor.getCount()>0) {
                 Toast.makeText(getApplicationContext(), "Schedule might be outdated! Please connect to the internet to update schedule!", Toast.LENGTH_LONG).show();

@@ -4,6 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/customborder"
     tools:context="rks.fiek.akeniligjerata.mainActivity">
 
     <TextView
@@ -15,7 +16,8 @@
         android:layout_above="@+id/btnRoom"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="88dp"
-        android:fontFamily="sans-serif" />
+        android:fontFamily="sans-serif"
+        android:textColor="#FFFFFF"/>
 
     <Button
         android:text="@string/find_me_a_room"
@@ -24,7 +26,7 @@
         android:id="@+id/btnRoom"
         android:layout_above="@+id/btnMap"
         android:layout_centerHorizontal="true"
-        android:onClick="btnPlanOnClick" />
+        android:onClick="btnPlanOnClick"/>
 
     <Button
         android:text="@string/take_me_to_fiek"

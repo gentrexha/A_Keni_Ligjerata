@@ -3,6 +3,7 @@ package rks.fiek.akeniligjerata;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -28,6 +29,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class fourthFloorActivity extends AppCompatActivity {
@@ -196,6 +198,21 @@ public class fourthFloorActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            Cursor objCursor = objDB.getTodayLectures("411");
+            ArrayList<String> startTime = new ArrayList<String>();
+            ArrayList<String> endTime = new ArrayList<String>();
+
+            for (objCursor.moveToFirst(); !objCursor.isAfterLast(); objCursor.moveToNext()) {
+                // TO DO code here
+                startTime.add(objCursor.getString(0));
+                endTime.add(objCursor.getString(1));
+            }
+
+            objCursor.close();
+            int fara = startTime.size();
+            String florim = startTime.get(0);
+            Log.d("Florim: ", fara + " " + florim + "  " + endTime.size() + endTime.get(0));
         }
     }
 }

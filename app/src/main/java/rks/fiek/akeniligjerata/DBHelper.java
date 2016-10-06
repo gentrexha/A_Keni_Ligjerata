@@ -54,7 +54,7 @@ class DBHelper extends SQLiteOpenHelper {
         contentValues.put(SCHEDULE_COLUMN_CLASSNUMBER, lecture.getClassnumber());
         contentValues.put(SCHEDULE_COLUMN_CLASSNAME, lecture.getClassname());
         contentValues.put(SCHEDULE_COLUMN_STARTTIME, lecture.getStarttime());
-        contentValues.put(SCHEDULE_COLUMN_ENDTIME, lecture.getStarttime());
+        contentValues.put(SCHEDULE_COLUMN_ENDTIME, lecture.getEndtime());
         db.insert(SCHEDULE_TABLE_NAME, null, contentValues);
     }
 
@@ -68,8 +68,7 @@ class DBHelper extends SQLiteOpenHelper {
         Date date = calendar.getTime();
         String day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("select "+SCHEDULE_COLUMN_STARTTIME+","+SCHEDULE_COLUMN_ENDTIME+" where "+SCHEDULE_COLUMN_CLASSNUMBER+
-                "="+classnumber+" and "+SCHEDULE_COLUMN_DAY+"="+day,null);
+        return db.rawQuery("select starttime,endtime from schedule where day='"+day+"' and classnumber='"+classnumber+"'",null);
     }
 
     @Override

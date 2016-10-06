@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -20,10 +21,11 @@ public class class408Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class408);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         list = (ListView)findViewById(R.id.list);
         DBHelper objDB = new DBHelper(this);
-        final Cursor objCursor = objDB.getTodayLectures("411");
+        final Cursor objCursor = objDB.getTodayLectures("408");
 
         if (objCursor.getCount()>0) {
             TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, objCursor);

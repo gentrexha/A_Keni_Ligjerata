@@ -33,9 +33,9 @@ public class fourthFloorActivity extends AppCompatActivity {
     // ImageViews
     ImageView imgv4thFloor;
     ImageView imgv4thFloor_Area;
-    public int nrRowsInDatabase = 0;
 
     private DBHelper objDB;
+    public int nrRowsInDatabase;
 
     private static final String dbURL = "http://200.6.254.247/my-service.php";
 
@@ -49,6 +49,7 @@ public class fourthFloorActivity extends AppCompatActivity {
         objDB = new DBHelper(this);
 
         Cursor cursor = objDB.getAllLectures();
+        nrRowsInDatabase = cursor.getCount();
 
         int nrRows = cursor.getCount();
 
@@ -60,6 +61,7 @@ public class fourthFloorActivity extends AppCompatActivity {
                 new RetrieveSchedule().execute();
                 Log.d("nrRows<1: ", "pa u insert asniher");
             } else {
+                colorRoom("411");
                 Log.d("nrRows>=1: ", "masi te insertohen");
             }
         }
@@ -215,7 +217,6 @@ public class fourthFloorActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            colorRoom("411");
         }
     }
 

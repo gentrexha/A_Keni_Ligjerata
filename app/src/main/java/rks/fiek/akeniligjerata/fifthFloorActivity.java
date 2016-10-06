@@ -57,17 +57,25 @@ public class fifthFloorActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), fourthFloorActivity.class);
                             startActivity(intent);
                         }
-                        else if (closeMatch(Color.RED, touch_color,tolerance)) {
-
+                        if (closeMatch(Color.BLACK, touch_color,tolerance)) {
+                            Intent int507 = new Intent(getApplicationContext(), class507Activity.class);
+                            startActivity(int507);
+                            Log.d("Klasa: ", "507");
                         }
-                        else if (closeMatch(Color.YELLOW, touch_color,tolerance)) {
-
+                        if (closeMatch(Color.RED, touch_color,tolerance)) {
+                            Intent int521 = new Intent(getApplicationContext(), class521Activity.class);
+                            startActivity(int521);
+                            Log.d("Klasa: ", "521");
                         }
-                        else if (closeMatch(Color.GREEN, touch_color,tolerance)) {
-
+                        if (closeMatch(Color.YELLOW, touch_color,tolerance)) {
+                            Intent int526 = new Intent(getApplicationContext(), class526Activity.class);
+                            startActivity(int526);
+                            Log.d("Klasa: ", "526");
                         }
-                        else if (closeMatch(Color.BLACK, touch_color,tolerance)) {
-
+                        if (closeMatch(Color.GREEN, touch_color,tolerance)) {
+                            Intent int511 = new Intent(getApplicationContext(), class511Activity.class);
+                            startActivity(int511);
+                            Log.d("Klasa: ", "511");
                         }
                         break;
                 }

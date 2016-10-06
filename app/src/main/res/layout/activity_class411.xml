@@ -22,35 +22,63 @@
         android:id="@+id/textView"
         android:fontFamily="sans-serif"
         android:textAlignment="center"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:textStyle="normal|bold"
         android:layout_below="@+id/imgvClassPhoto"
-        android:layout_alignParentStart="true" />
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_height="250dp"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true">
-    </ListView>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Comment"
-        android:ems="10"
-        android:layout_below="@+id/list"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText" />
+        android:background="@drawable/textlines"
+        android:textColor="#FFFFFF"/>
 
     <Button
         android:text="Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/editText"
+        android:layout_alignTop="@+id/editText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Add comment"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/button2" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true">
+    </ListView>
+
+    <TextView
+        android:text="Comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/list"
-        android:layout_toEndOf="@+id/editText"
-        android:id="@+id/button2" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView2"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:background="@drawable/textlines"
+        android:textColor="#FFFFFF"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/button2"
+        android:id="@+id/listComments">
+    </ListView>
 
 </RelativeLayout>

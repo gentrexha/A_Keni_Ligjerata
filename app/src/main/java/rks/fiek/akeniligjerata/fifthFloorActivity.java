@@ -69,9 +69,6 @@ public class fifthFloorActivity extends AppCompatActivity {
                         else if (closeMatch(Color.BLACK, touch_color,tolerance)) {
 
                         }
-                        else if (closeMatch(Color.WHITE, touch_color,tolerance)) {
-
-                        }
                         break;
                 }
                 return true;

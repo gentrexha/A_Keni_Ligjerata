@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="rks.fiek.akeniligjerata.class411Activity">
 
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+    </ListView>
+
 </RelativeLayout>

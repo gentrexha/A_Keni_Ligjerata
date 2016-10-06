@@ -24,7 +24,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -92,7 +91,7 @@ public class fourthFloorActivity extends AppCompatActivity {
                             Intent int411 = new Intent(getApplicationContext(), class411Activity.class);
                             startActivity(int411);
                         }
-                        if (closeMatch(Color.WHITE, touch_color, tolerance)) {
+                        if (closeMatch(Color.CYAN, touch_color, tolerance)) {
                             Intent int415 = new Intent(getApplicationContext(), class415Activity.class);
                             startActivity(int415);
                         }
@@ -220,7 +219,7 @@ public class fourthFloorActivity extends AppCompatActivity {
         protected void onPostExecute(JSONArray result) {
             super.onPostExecute(result);
 
-            Cursor objCursor = objDB.getTodayLectures("411");
+            Cursor objCursor = objDB.getTodayLecturesTimes("411");
             ArrayList<String> startTime = new ArrayList<String>();
             ArrayList<String> endTime = new ArrayList<String>();
 

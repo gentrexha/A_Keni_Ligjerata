@@ -48,7 +48,11 @@
         <activity android:name=".class408Activity" />
         <activity android:name=".class411Activity" />
         <activity android:name=".class414Activity" />
-        <activity android:name=".class415Activity"></activity>
+        <activity android:name=".class415Activity" />
+        <activity android:name=".class507Activity" />
+        <activity android:name=".class511Activity" />
+        <activity android:name=".class521Activity" />
+        <activity android:name=".class526Activity"></activity>
     </application>
 
 </manifest>

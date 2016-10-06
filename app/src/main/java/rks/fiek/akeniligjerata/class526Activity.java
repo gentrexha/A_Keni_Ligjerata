@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-public class class414Activity extends AppCompatActivity {
+public class class526Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class414);
+        setContentView(R.layout.activity_class526);
 
         DBHelper objDB = new DBHelper(this);
-        final Cursor objCursor = objDB.getTodayLectures("414");
+        final Cursor objCursor = objDB.getTodayLectures("526");
 
         if (objCursor.getCount()>0) {
             String[] columns = new String[]{

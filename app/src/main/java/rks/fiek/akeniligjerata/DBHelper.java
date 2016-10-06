@@ -23,7 +23,7 @@ class DBHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 2;
 
     private static final String SCHEDULE_TABLE_NAME = "schedule";
-    private static final String SCHEDULE_COLUMN_ID = "_id";
+    private static final String SCHEDULE_COLUMN_ID = "id";
     private static final String SCHEDULE_COLUMN_DAY = "day";
     private static final String SCHEDULE_COLUMN_CLASSNUMBER = "classnumber";
     private static final String SCHEDULE_COLUMN_CLASSNAME = "classname";
@@ -76,7 +76,7 @@ class DBHelper extends SQLiteOpenHelper {
         Date date = calendar.getTime();
         String day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("select classname,starttime,endtime from schedule where day='"+day+"' and classnumber='"+classnumber+"'",null);
+        return db.rawQuery("select * from schedule where day='"+day+"' and classnumber='"+classnumber+"'",null);
     }
 
     public Cursor dropLectures() {

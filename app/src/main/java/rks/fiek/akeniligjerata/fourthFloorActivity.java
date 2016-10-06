@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +35,6 @@ public class fourthFloorActivity extends AppCompatActivity {
     // ImageViews
     ImageView imgv4thFloor;
     ImageView imgv4thFloor_Area;
-    public int nrRowsInsertedOnDatabase;
 
     private DBHelper objDB;
 
@@ -51,27 +51,16 @@ public class fourthFloorActivity extends AppCompatActivity {
         objDB = new DBHelper(this);
         Cursor cursor = objDB.getAllLectures();
 
-        if(cursor.getCount() == 0)
+        if (isNetworkAvailable())
         {
-            new RetrieveSchedule().execute();
-        }
-        cursor = objDB.getAllLectures();
-
-        int nrRowsInsertedOnLocalDatabase = cursor.getColumnCount();
-        if(nrRowsInsertedOnLocalDatabase < nrRowsInsertedOnDatabase)
-        {
+            // KA INTERNET
             objDB.dropLectures();
             new RetrieveSchedule().execute();
         }
-        else
-        {
-            if(nrRowsInsertedOnLocalDatabase<1)
-            {
-                new RetrieveSchedule().execute();
-            }
-            else
-            {
-                chooseRoom("411");
+        // SKA INTERNET, DUHET ME NDREQ!!!
+        else{
+            if (cursor.getCount()>0) {
+                Toast.makeText(getApplicationContext(), "Schedule might be outdated! Please connect to the internet to update schedule!", Toast.LENGTH_LONG).show();
             }
         }
 

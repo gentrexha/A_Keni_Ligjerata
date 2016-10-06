@@ -1,5 +1,6 @@
 package rks.fiek.akeniligjerata;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Context;
 import android.database.Cursor;
@@ -48,6 +49,10 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         objDB = new DBHelper(this);
         Cursor cursor = objDB.getAllLectures();
+
+        if (cursor.getCount()==0) {
+            new RetrieveSchedule().execute();
+        }
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -115,14 +120,15 @@ public class fourthFloorActivity extends AppCompatActivity {
 
     public class RetrieveSchedule extends AsyncTask<Void, Void, JSONArray> {
 
-        // ProgressDialog progressDialog;
+        ProgressDialog progressDialog;
         Exception mException;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             this.mException = null;
-            // progressDialog = progressDialog.show(fourthFloorActivity.this, "Loading schedule...","TEST", true);
+            progressDialog = progressDialog.show(fourthFloorActivity.this,
+                    "Loading schedule...","Please wait while the schedule is downloading", true);
         }
 
         @Override
@@ -170,11 +176,11 @@ public class fourthFloorActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONArray result) {
             super.onPostExecute(result);
-            // progressDialog.dismiss();
+            progressDialog.dismiss();
+
             if (this.mException != null) {
                 Log.e("JSON Exception", this.mException.toString());
             }
-            // Log.d("JSONARRAY",""+result.length());
             try {
                 for (int i = 0; i < result.length(); i++) {
                     JSONObject jsonObjectLecture = result.getJSONObject(i);
@@ -184,9 +190,7 @@ public class fourthFloorActivity extends AppCompatActivity {
                     String lectureClassName = jsonObjectLecture.getString("classname");
                     String lectureStartTime = jsonObjectLecture.getString("starttime");
                     String lectureEndTime = jsonObjectLecture.getString("endtime");
-                    Lecture lecture = new Lecture(lectureID, lectureDay, lectureClassNumber,
-                            lectureClassName, lectureStartTime, lectureEndTime);
-                    objDB.insertLecture(lecture);
+                    objDB.insertLecture(lectureID, lectureDay, lectureClassNumber,lectureClassName, lectureStartTime, lectureEndTime);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -211,6 +215,4 @@ public class fourthFloorActivity extends AppCompatActivity {
         String florim = startTime.get(0);
         Log.d("Florim: ", fara + " " + florim + "  " + endTime.size() + endTime.get(0));
     }
-
-
 }

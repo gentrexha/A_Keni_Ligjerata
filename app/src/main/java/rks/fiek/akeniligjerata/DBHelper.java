@@ -20,15 +20,15 @@ import java.util.Locale;
 
 class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "akeniligjerata.db";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
 
-    private static final String SCHEDULE_TABLE_NAME = "schedule";
-    private static final String SCHEDULE_COLUMN_ID = "id";
-    private static final String SCHEDULE_COLUMN_DAY = "day";
-    private static final String SCHEDULE_COLUMN_CLASSNUMBER = "classnumber";
-    private static final String SCHEDULE_COLUMN_CLASSNAME = "classname";
-    private static final String SCHEDULE_COLUMN_STARTTIME = "starttime";
-    private static final String SCHEDULE_COLUMN_ENDTIME = "endtime";
+    public static final String SCHEDULE_TABLE_NAME = "schedule";
+    public static final String SCHEDULE_COLUMN_ID = "_id";
+    public static final String SCHEDULE_COLUMN_DAY = "day";
+    public static final String SCHEDULE_COLUMN_CLASSNUMBER = "classnumber";
+    public static final String SCHEDULE_COLUMN_CLASSNAME = "classname";
+    public static final String SCHEDULE_COLUMN_STARTTIME = "starttime";
+    public static final String SCHEDULE_COLUMN_ENDTIME = "endtime";
 
     public DBHelper(Context context) {
         super(context, DB_NAME , null, DB_VERSION);
@@ -36,14 +36,8 @@ class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + SCHEDULE_TABLE_NAME + "(" +
-                SCHEDULE_COLUMN_ID + " INTEGER PRIMARY KEY, " +
-                SCHEDULE_COLUMN_DAY + " TEXT, " +
-                SCHEDULE_COLUMN_CLASSNUMBER + " TEXT, " +
-                SCHEDULE_COLUMN_CLASSNAME + " TEXT, " +
-                SCHEDULE_COLUMN_STARTTIME + " TEXT, " +
-                SCHEDULE_COLUMN_ENDTIME + " TEXT)"
-        );
+        db.execSQL("CREATE TABLE schedule (_id INT PRIMARY KEY NOT NULL, day TEXT NOT NULL, classnumber TEXT NOT NULL, " +
+                "classname TEXT NOT NULL, starttime TEXT NOT NULL, endtime TEXT NOT NULL)");
     }
 
     public void insertLecture(Lecture lecture) {
@@ -55,6 +49,18 @@ class DBHelper extends SQLiteOpenHelper {
         contentValues.put(SCHEDULE_COLUMN_CLASSNAME, lecture.getClassname());
         contentValues.put(SCHEDULE_COLUMN_STARTTIME, lecture.getStarttime());
         contentValues.put(SCHEDULE_COLUMN_ENDTIME, lecture.getEndtime());
+        db.insert(SCHEDULE_TABLE_NAME, null, contentValues);
+    }
+
+    public void insertLecture(int id, String day, String classnumber, String classname, String starttime, String endtime) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SCHEDULE_COLUMN_ID, id);
+        contentValues.put(SCHEDULE_COLUMN_DAY, day);
+        contentValues.put(SCHEDULE_COLUMN_CLASSNUMBER, classnumber);
+        contentValues.put(SCHEDULE_COLUMN_CLASSNAME, classname);
+        contentValues.put(SCHEDULE_COLUMN_STARTTIME, starttime);
+        contentValues.put(SCHEDULE_COLUMN_ENDTIME, endtime);
         db.insert(SCHEDULE_TABLE_NAME, null, contentValues);
     }
 

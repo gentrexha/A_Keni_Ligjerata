@@ -29,7 +29,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_507_red"
-        android:id="@+id/class507Red"
+        android:id="@+id/imgvClass507Red"
         />
 
     <ImageView
@@ -37,7 +37,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_507_green"
-        android:id="@+id/class507Green"
+        android:id="@+id/imgvClass507Green"
         />
 
     <ImageView
@@ -45,7 +45,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_511_red"
-        android:id="@+id/class511Red"
+        android:id="@+id/imgvclass511Red"
         />
 
 
@@ -54,7 +54,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_511_green"
-        android:id="@+id/class511Green"
+        android:id="@+id/imgvClass511Green"
         />
 
     <ImageView
@@ -62,7 +62,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_521_red"
-        android:id="@+id/class521Red"
+        android:id="@+id/imgvClass521Red"
         />
 
     <ImageView
@@ -70,7 +70,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_521_green"
-        android:id="@+id/class521Green"
+        android:id="@+id/imgvClass521Green"
         />
 
 
@@ -79,7 +79,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_526_red"
-        android:id="@+id/class526Red"
+        android:id="@+id/imgvClass526Red"
         />
 
     <ImageView
@@ -87,7 +87,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_526_green"
-        android:id="@+id/class526Green"
+        android:id="@+id/imgvClass526Green"
         />
 
 </RelativeLayout>

@@ -6,9 +6,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.renderscript.Allocation;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,15 +28,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import static android.support.v7.appcompat.R.id.time;
 
 public class fourthFloorActivity extends AppCompatActivity {
 
     // ImageViews
     ImageView imgv4thFloor;
     ImageView imgv4thFloor_Area;
+    ImageView imageView;
 
     private DBHelper objDB;
 
@@ -63,6 +72,12 @@ public class fourthFloorActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Schedule might be outdated! Please connect to the internet to update schedule!", Toast.LENGTH_LONG).show();
             }
         }
+
+        chooseRoom("411");
+        chooseRoom("401");
+        chooseRoom("408");
+        chooseRoom("414");
+        chooseRoom("415");
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -214,15 +229,104 @@ public class fourthFloorActivity extends AppCompatActivity {
         ArrayList<String> startTime = new ArrayList<String>();
         ArrayList<String> endTime = new ArrayList<String>();
 
-        for (objCursor.moveToFirst(); !objCursor.isAfterLast(); objCursor.moveToNext()) {
-            // TO DO code here
-            startTime.add(objCursor.getString(0));
-            endTime.add(objCursor.getString(1));
+        int nrRows = objCursor.getCount();
+
+        if(nrRows >0 ) {
+            for (objCursor.moveToFirst(); !objCursor.isAfterLast(); objCursor.moveToNext()) {
+                // TO DO code here
+                startTime.add(objCursor.getString(0));
+                endTime.add(objCursor.getString(1));
+            }
         }
 
         objCursor.close();
-        int fara = startTime.size();
-        String florim = startTime.get(0);
-        Log.d("Florim: ", fara + " " + florim + "  " + endTime.size() + endTime.get(0));
+        if(nrRows < 1) {
+            String nrClass = "imgvClass" + classnumber +"Green";
+            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+            imageView = (ImageView) findViewById(resID);
+            imageView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            int numberOfRows = startTime.size();
+            for (int i = 0; i < numberOfRows; i++)
+            {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                int hour = date.getHours();
+                int minutes = date.getMinutes();
+                int seconds = date.getSeconds();
+                String[] parts1 = startTime.get(i).split(":");
+                int[] NrStartTime = {Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), Integer.parseInt(parts1[2])};
+                String[] parts2 = endTime.get(i).split(":");
+                int[] NrEndTime = {Integer.parseInt(parts2[0]), Integer.parseInt(parts2[1]), Integer.parseInt(parts2[2])};
+                if(NrStartTime[0] <= hour && hour <= NrEndTime[0])
+                {
+                    if(NrStartTime[1] <= minutes && NrEndTime[1] <= minutes)
+                    {
+                        if(NrStartTime[2] <= seconds)
+                        {
+                            String nrClass = "imgvClass" + classnumber +"Red";
+                            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                            imageView = (ImageView) findViewById(resID);
+                            imageView.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            String nrClass = "imgvClass" + classnumber +"Green";
+                            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                            imageView = (ImageView) findViewById(resID);
+                            imageView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    else if(NrStartTime[0] < hour && NrEndTime[0] <= hour)
+                    {
+                        if(NrEndTime[1] <= minutes)
+                        {
+                            if(NrStartTime[2] <= seconds)
+                            {
+                                String nrClass = "imgvClass" + classnumber +"Red";
+                                int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                                imageView = (ImageView) findViewById(resID);
+                                imageView.setVisibility(View.VISIBLE);
+
+                            }
+                            else
+                            {
+                                String nrClass = "imgvClass" + classnumber +"Green";
+                                int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                                imageView = (ImageView) findViewById(resID);
+                                imageView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        else
+                        {
+                            String nrClass = "imgvClass" + classnumber +"Green";
+                            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                            imageView = (ImageView) findViewById(resID);
+                            imageView.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                    else
+                    {
+                        String nrClass = "imgvClass" + classnumber +"Green";
+                        int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                        imageView = (ImageView) findViewById(resID);
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+                }
+                else
+                {
+                    String nrClass = "imgvClass" + classnumber +"Green";
+                    int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                    imageView = (ImageView) findViewById(resID);
+                    imageView.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+        }
+
     }
 }

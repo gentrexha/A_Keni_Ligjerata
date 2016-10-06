@@ -1,27 +1,46 @@
 package rks.fiek.akeniligjerata;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class fifthFloorActivity extends AppCompatActivity {
 
     ImageView imgvFifthFloor;
     ImageView imgvFifthFloorArea;
-    ImageView imgvClass507Red;
-    ImageView imgvClass507Green;
-    ImageView imgvClass511Red;
-    ImageView imgvClass511Green;
-    ImageView imgvClass521Red;
-    ImageView imgvClass521Green;
-    ImageView imgvClass526Red;
-    ImageView imgvClass526Green;
+    ImageView imageView;
+
+    private DBHelper objDB;
+    private static final String dbURL = "http://200.6.254.247/my-service.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +49,27 @@ public class fifthFloorActivity extends AppCompatActivity {
 
         imgvFifthFloor = (ImageView) findViewById(R.id.imgvFifth);
         imgvFifthFloorArea = (ImageView) findViewById(R.id.imgvFifthArea);
-        imgvClass507Red = (ImageView) findViewById(R.id.class507Red);
-        imgvClass507Green = (ImageView) findViewById(R.id.class507Green);
-        imgvClass511Red = (ImageView) findViewById(R.id.class511Red);
-        imgvClass511Green = (ImageView) findViewById(R.id.class511Green);
-        imgvClass521Red = (ImageView) findViewById(R.id.class521Red);
-        imgvClass521Green = (ImageView) findViewById(R.id.class521Green);
-        imgvClass526Red = (ImageView) findViewById(R.id.class526Red);
-        imgvClass526Green = (ImageView) findViewById(R.id.class526Green);
+
+        objDB = new DBHelper(this);
+        Cursor cursor = objDB.getAllLectures();
+
+        if (isNetworkAvailable())
+        {
+            // KA INTERNET
+            objDB.dropLectures();
+            new RetrieveSchedule().execute();
+        }
+        // SKA INTERNET, DUHET ME NDREQ!!!
+        else{
+            if (cursor.getCount()>0) {
+                Toast.makeText(getApplicationContext(), "Schedule might be outdated! Please connect to the internet to update schedule!", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        chooseRoom("507");
+        chooseRoom("511");
+        chooseRoom("521");
+        chooseRoom("526");
 
         imgvFifthFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -102,5 +134,198 @@ public class fifthFloorActivity extends AppCompatActivity {
         if ( Math.abs (Color.blue (color1) - Color.blue (color2)) > tolerance )
             return false;
         return true;
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    public class RetrieveSchedule extends AsyncTask<Void, Void, JSONArray> {
+
+        ProgressDialog progressDialog;
+        Exception mException;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            this.mException = null;
+            progressDialog = progressDialog.show(fifthFloorActivity.this,
+                    "Loading schedule...","Please wait while the schedule is downloading", true);
+        }
+
+        @Override
+        protected JSONArray doInBackground(Void... voids) {
+
+            StringBuilder urlString = new StringBuilder();
+            urlString.append(dbURL);
+
+            HttpURLConnection objURLConnection = null;
+            URL objURL;
+            JSONArray objJSON = null;
+            InputStream objInStream = null;
+
+            try {
+                objURL = new URL(urlString.toString());
+                objURLConnection = (HttpURLConnection) objURL.openConnection();
+                objURLConnection.setRequestMethod("GET");
+                objURLConnection.setDoOutput(true);
+                objURLConnection.setDoInput(true);
+                objURLConnection.connect();
+                objInStream = objURLConnection.getInputStream();
+                BufferedReader objBReader = new BufferedReader(new InputStreamReader(objInStream));
+                String line;
+                String response = "";
+                while ((line = objBReader.readLine()) != null) {
+                    response += line;
+                }
+                objJSON = (JSONArray) new JSONTokener(response).nextValue();
+            } catch (Exception e) {
+                this.mException = e;
+            } finally {
+                if (objInStream != null) {
+                    try {
+                        objInStream.close(); // this will close the bReader as well
+                    } catch (IOException ignored) {
+                    }
+                }
+                if (objURLConnection != null) {
+                    objURLConnection.disconnect();
+                }
+            }
+            return objJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray result) {
+            super.onPostExecute(result);
+            progressDialog.dismiss();
+
+            if (this.mException != null) {
+                Log.e("JSON Exception", this.mException.toString());
+            }
+            try {
+                for (int i = 0; i < result.length(); i++) {
+                    JSONObject jsonObjectLecture = result.getJSONObject(i);
+                    int lectureID = jsonObjectLecture.getInt("id");
+                    String lectureDay = jsonObjectLecture.getString("day");
+                    String lectureClassNumber = jsonObjectLecture.getString("classnumber");
+                    String lectureClassName = jsonObjectLecture.getString("classname");
+                    String lectureStartTime = jsonObjectLecture.getString("starttime");
+                    String lectureEndTime = jsonObjectLecture.getString("endtime");
+                    objDB.insertLecture(lectureID, lectureDay, lectureClassNumber,lectureClassName, lectureStartTime, lectureEndTime);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void chooseRoom(String classnumber) {
+
+        Cursor objCursor = objDB.getTodayLecturesTimes(classnumber);
+        ArrayList<String> startTime = new ArrayList<String>();
+        ArrayList<String> endTime = new ArrayList<String>();
+
+        int nrRows = objCursor.getCount();
+
+        if(nrRows >0 ) {
+            for (objCursor.moveToFirst(); !objCursor.isAfterLast(); objCursor.moveToNext()) {
+                // TO DO code here
+                startTime.add(objCursor.getString(0));
+                endTime.add(objCursor.getString(1));
+            }
+        }
+
+        objCursor.close();
+        if(nrRows < 1) {
+            String nrClass = "imgvClass" + classnumber +"Green";
+            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+            imageView = (ImageView) findViewById(resID);
+            imageView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            int numberOfRows = startTime.size();
+            for (int i = 0; i < numberOfRows; i++)
+            {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                int hour = date.getHours();
+                int minutes = date.getMinutes();
+                int seconds = date.getSeconds();
+                String[] parts1 = startTime.get(i).split(":");
+                int[] NrStartTime = {Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), Integer.parseInt(parts1[2])};
+                String[] parts2 = endTime.get(i).split(":");
+                int[] NrEndTime = {Integer.parseInt(parts2[0]), Integer.parseInt(parts2[1]), Integer.parseInt(parts2[2])};
+                if(NrStartTime[0] <= hour && hour <= NrEndTime[0])
+                {
+                    if(NrStartTime[1] <= minutes && NrEndTime[1] <= minutes)
+                    {
+                        if(NrStartTime[2] <= seconds)
+                        {
+                            String nrClass = "imgvClass" + classnumber +"Red";
+                            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                            imageView = (ImageView) findViewById(resID);
+                            imageView.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            String nrClass = "imgvClass" + classnumber +"Green";
+                            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                            imageView = (ImageView) findViewById(resID);
+                            imageView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    else if(NrStartTime[0] < hour && NrEndTime[0] <= hour)
+                    {
+                        if(NrEndTime[1] <= minutes)
+                        {
+                            if(NrStartTime[2] <= seconds)
+                            {
+                                String nrClass = "imgvClass" + classnumber +"Red";
+                                int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                                imageView = (ImageView) findViewById(resID);
+                                imageView.setVisibility(View.VISIBLE);
+
+                            }
+                            else
+                            {
+                                String nrClass = "imgvClass" + classnumber +"Green";
+                                int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                                imageView = (ImageView) findViewById(resID);
+                                imageView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        else
+                        {
+                            String nrClass = "imgvClass" + classnumber +"Green";
+                            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                            imageView = (ImageView) findViewById(resID);
+                            imageView.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                    else
+                    {
+                        String nrClass = "imgvClass" + classnumber +"Green";
+                        int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                        imageView = (ImageView) findViewById(resID);
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+                }
+                else
+                {
+                    String nrClass = "imgvClass" + classnumber +"Green";
+                    int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                    imageView = (ImageView) findViewById(resID);
+                    imageView.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+        }
+
     }
 }

@@ -34,6 +34,7 @@ public class fourthFloorActivity extends AppCompatActivity {
     // ImageViews
     ImageView imgv4thFloor;
     ImageView imgv4thFloor_Area;
+    public int nrRowsInsertedOnDatabase;
 
     private DBHelper objDB;
 
@@ -50,8 +51,28 @@ public class fourthFloorActivity extends AppCompatActivity {
         objDB = new DBHelper(this);
         Cursor cursor = objDB.getAllLectures();
 
-        if (cursor.getCount()==0) {
+        if(cursor.getCount() == 0)
+        {
             new RetrieveSchedule().execute();
+        }
+        cursor = objDB.getAllLectures();
+
+        int nrRowsInsertedOnLocalDatabase = cursor.getColumnCount();
+        if(nrRowsInsertedOnLocalDatabase < nrRowsInsertedOnDatabase)
+        {
+            objDB.dropLectures();
+            new RetrieveSchedule().execute();
+        }
+        else
+        {
+            if(nrRowsInsertedOnLocalDatabase<1)
+            {
+                new RetrieveSchedule().execute();
+            }
+            else
+            {
+                chooseRoom("411");
+            }
         }
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
@@ -198,7 +219,7 @@ public class fourthFloorActivity extends AppCompatActivity {
         }
     }
 
-    public void colorRoom(String classnumber) {
+    public void chooseRoom(String classnumber) {
 
         Cursor objCursor = objDB.getTodayLecturesTimes(classnumber);
         ArrayList<String> startTime = new ArrayList<String>();

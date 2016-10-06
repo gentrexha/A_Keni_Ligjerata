@@ -1,6 +1,5 @@
 package rks.fiek.akeniligjerata;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,7 +14,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +28,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class fourthFloorActivity extends AppCompatActivity {
 
@@ -47,42 +44,55 @@ public class fourthFloorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth_floor);
 
-        imgv4thFloor = (ImageView)findViewById(R.id.imgvPlan);
-        imgv4thFloor_Area = (ImageView)findViewById(R.id.imgvPlan_Area);
+        imgv4thFloor = (ImageView) findViewById(R.id.imgvPlan);
+        imgv4thFloor_Area = (ImageView) findViewById(R.id.imgvPlan_Area);
         objDB = new DBHelper(this);
 
-        new RetrieveSchedule().execute();
+        Cursor cursor = objDB.getAllLectures();
+
+        int nrRows = cursor.getCount();
+
+        if (nrRows < 1) {
+            new RetrieveSchedule().execute();
+            new chooseRoom().execute();
+
+            Log.d("nrRows<1: ", "pa u insert asniher");
+        } else {
+            new chooseRoom().execute();
+
+            Log.d("nrRows>=1: ", "masi te insertohen");
+        }
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_UP:
-                        final int x = (int)motionEvent.getX();
-                        final int y = (int)motionEvent.getY();
-                        int touch_color = getHotspotColor(R.id.imgvPlan_Area,x,y);
+                        final int x = (int) motionEvent.getX();
+                        final int y = (int) motionEvent.getY();
+                        int touch_color = getHotspotColor(R.id.imgvPlan_Area, x, y);
                         int tolerance = 25;
-                        if (closeMatch(Color.BLUE, touch_color,tolerance)) {
+                        if (closeMatch(Color.BLUE, touch_color, tolerance)) {
                             Intent intFifthFloor = new Intent(getApplicationContext(), fifthFloorActivity.class);
                             startActivity(intFifthFloor);
                         }
-                        if (closeMatch(Color.RED, touch_color,tolerance)) {
+                        if (closeMatch(Color.RED, touch_color, tolerance)) {
                             Intent int401 = new Intent(getApplicationContext(), class401Activity.class);
                             startActivity(int401);
                         }
-                        if (closeMatch(Color.YELLOW, touch_color,tolerance)) {
+                        if (closeMatch(Color.YELLOW, touch_color, tolerance)) {
                             Intent int414 = new Intent(getApplicationContext(), class414Activity.class);
                             startActivity(int414);
                         }
-                        if (closeMatch(Color.GREEN, touch_color,tolerance)) {
+                        if (closeMatch(Color.GREEN, touch_color, tolerance)) {
                             Intent int408 = new Intent(getApplicationContext(), class408Activity.class);
                             startActivity(int408);
                         }
-                        if (closeMatch(Color.BLACK, touch_color,tolerance)) {
+                        if (closeMatch(Color.BLACK, touch_color, tolerance)) {
                             Intent int411 = new Intent(getApplicationContext(), class411Activity.class);
                             startActivity(int411);
                         }
-                        if (closeMatch(Color.WHITE, touch_color,tolerance)) {
+                        if (closeMatch(Color.WHITE, touch_color, tolerance)) {
                             Intent int415 = new Intent(getApplicationContext(), class415Activity.class);
                             startActivity(int415);
                         }
@@ -93,20 +103,20 @@ public class fourthFloorActivity extends AppCompatActivity {
         });
     }
 
-    public int getHotspotColor (int hotspotId, int x, int y) {
-        ImageView img = (ImageView) findViewById (hotspotId);
+    public int getHotspotColor(int hotspotId, int x, int y) {
+        ImageView img = (ImageView) findViewById(hotspotId);
         img.setDrawingCacheEnabled(true);
         Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
         img.setDrawingCacheEnabled(false);
         return hotspots.getPixel(x, y);
     }
 
-    public boolean closeMatch (int color1, int color2, int tolerance) {
-        if ( Math.abs (Color.red (color1) - Color.red (color2)) > tolerance )
+    public boolean closeMatch(int color1, int color2, int tolerance) {
+        if (Math.abs(Color.red(color1) - Color.red(color2)) > tolerance)
             return false;
-        if ( Math.abs (Color.green (color1) - Color.green (color2)) > tolerance )
+        if (Math.abs(Color.green(color1) - Color.green(color2)) > tolerance)
             return false;
-        if ( Math.abs (Color.blue (color1) - Color.blue (color2)) > tolerance )
+        if (Math.abs(Color.blue(color1) - Color.blue(color2)) > tolerance)
             return false;
         return true;
     }
@@ -117,7 +127,7 @@ public class fourthFloorActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
-    public class RetrieveSchedule extends AsyncTask<Void,Void,JSONArray> {
+    public class RetrieveSchedule extends AsyncTask<Void, Void, JSONArray> {
 
         // ProgressDialog progressDialog;
         Exception mException;
@@ -151,20 +161,17 @@ public class fourthFloorActivity extends AppCompatActivity {
                 BufferedReader objBReader = new BufferedReader(new InputStreamReader(objInStream));
                 String line;
                 String response = "";
-                while ((line = objBReader.readLine()) != null)
-                {
+                while ((line = objBReader.readLine()) != null) {
                     response += line;
                 }
                 objJSON = (JSONArray) new JSONTokener(response).nextValue();
             } catch (Exception e) {
                 this.mException = e;
-            }
-            finally {
+            } finally {
                 if (objInStream != null) {
                     try {
                         objInStream.close(); // this will close the bReader as well
-                    }
-                    catch (IOException ignored) {
+                    } catch (IOException ignored) {
                     }
                 }
                 if (objURLConnection != null) {
@@ -179,11 +186,11 @@ public class fourthFloorActivity extends AppCompatActivity {
             super.onPostExecute(result);
             // progressDialog.dismiss();
             if (this.mException != null) {
-                Log.e("JSON Exception",this.mException.toString());
+                Log.e("JSON Exception", this.mException.toString());
             }
             // Log.d("JSONARRAY",""+result.length());
             try {
-                for (int i=0;i<result.length();i++) {
+                for (int i = 0; i < result.length(); i++) {
                     JSONObject jsonObjectLecture = result.getJSONObject(i);
                     int lectureID = jsonObjectLecture.getInt("id");
                     String lectureDay = jsonObjectLecture.getString("day");
@@ -199,6 +206,20 @@ public class fourthFloorActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+        }
+    }
+
+    public class chooseRoom extends AsyncTask<Void, Void, JSONArray> {
+
+        @Override
+        protected JSONArray doInBackground(Void... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray result) {
+            super.onPostExecute(result);
+
             Cursor objCursor = objDB.getTodayLectures("411");
             ArrayList<String> startTime = new ArrayList<String>();
             ArrayList<String> endTime = new ArrayList<String>();
@@ -213,6 +234,9 @@ public class fourthFloorActivity extends AppCompatActivity {
             int fara = startTime.size();
             String florim = startTime.get(0);
             Log.d("Florim: ", fara + " " + florim + "  " + endTime.size() + endTime.get(0));
+
+
         }
+
     }
 }

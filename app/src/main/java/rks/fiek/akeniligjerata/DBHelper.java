@@ -79,6 +79,11 @@ class DBHelper extends SQLiteOpenHelper {
         return db.rawQuery("select classname,starttime,endtime from schedule where day='"+day+"' and classnumber='"+classnumber+"'",null);
     }
 
+    public Cursor dropLectures() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("DROP table " + SCHEDULE_TABLE_NAME,null );
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // In case the db needs to upgraded, we just drop and recreate

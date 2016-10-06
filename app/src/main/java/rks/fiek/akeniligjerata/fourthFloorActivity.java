@@ -33,6 +33,7 @@ public class fourthFloorActivity extends AppCompatActivity {
     // ImageViews
     ImageView imgv4thFloor;
     ImageView imgv4thFloor_Area;
+    public int nrRowsInDatabase = 0;
 
     private DBHelper objDB;
 
@@ -51,15 +52,24 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         int nrRows = cursor.getCount();
 
-        if (nrRows < 1) {
-            new RetrieveSchedule().execute();
-            new chooseRoom().execute();
+        if(!isNetworkAvailable()) {
+            if (nrRows != nrRowsInDatabase) {
+                objDB.dropLectures();
+                new RetrieveSchedule().execute();
+            } else if (nrRows < 1) {
+                new RetrieveSchedule().execute();
+                Log.d("nrRows<1: ", "pa u insert asniher");
+            } else {
+                Log.d("nrRows>=1: ", "masi te insertohen");
+            }
+        }
+        else
+        {
+            if(nrRows>0)
+            {
+                colorRoom("411");
+            }
 
-            Log.d("nrRows<1: ", "pa u insert asniher");
-        } else {
-            new chooseRoom().execute();
-
-            Log.d("nrRows>=1: ", "masi te insertohen");
         }
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
@@ -201,41 +211,31 @@ public class fourthFloorActivity extends AppCompatActivity {
                             lectureClassName, lectureStartTime, lectureEndTime);
                     objDB.insertLecture(lecture);
                 }
+                nrRowsInDatabase = result.length();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            colorRoom("411");
         }
     }
 
-    public class chooseRoom extends AsyncTask<Void, Void, JSONArray> {
+    public void colorRoom(String classnumber) {
 
-        @Override
-        protected JSONArray doInBackground(Void... params) {
-            return null;
+        Cursor objCursor = objDB.getTodayLecturesTimes(classnumber);
+        ArrayList<String> startTime = new ArrayList<String>();
+        ArrayList<String> endTime = new ArrayList<String>();
+
+        for (objCursor.moveToFirst(); !objCursor.isAfterLast(); objCursor.moveToNext()) {
+            // TO DO code here
+            startTime.add(objCursor.getString(0));
+            endTime.add(objCursor.getString(1));
         }
 
-        @Override
-        protected void onPostExecute(JSONArray result) {
-            super.onPostExecute(result);
-
-            Cursor objCursor = objDB.getTodayLecturesTimes("411");
-            ArrayList<String> startTime = new ArrayList<String>();
-            ArrayList<String> endTime = new ArrayList<String>();
-
-            for (objCursor.moveToFirst(); !objCursor.isAfterLast(); objCursor.moveToNext()) {
-                // TO DO code here
-                startTime.add(objCursor.getString(0));
-                endTime.add(objCursor.getString(1));
-            }
-
-            objCursor.close();
-            int fara = startTime.size();
-            String florim = startTime.get(0);
-            Log.d("Florim: ", fara + " " + florim + "  " + endTime.size() + endTime.get(0));
-
-
-        }
-
+        objCursor.close();
+        int fara = startTime.size();
+        String florim = startTime.get(0);
+        Log.d("Florim: ", fara + " " + florim + "  " + endTime.size() + endTime.get(0));
     }
+
+
 }

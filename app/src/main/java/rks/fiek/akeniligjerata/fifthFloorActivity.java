@@ -57,7 +57,7 @@ public class fifthFloorActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), fourthFloorActivity.class);
                             startActivity(intent);
                         }
-                        if (closeMatch(Color.BLACK, touch_color,tolerance)) {
+                        if (closeMatch(Color.CYAN, touch_color,tolerance)) {
                             Intent int507 = new Intent(getApplicationContext(), class507Activity.class);
                             startActivity(int507);
                             Log.d("Klasa: ", "507");

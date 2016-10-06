@@ -35,7 +35,6 @@ public class fourthFloorActivity extends AppCompatActivity {
     ImageView imgv4thFloor_Area;
 
     private DBHelper objDB;
-    public int nrRowsInDatabase;
 
     private static final String dbURL = "http://200.6.254.247/my-service.php";
 
@@ -46,33 +45,9 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         imgv4thFloor = (ImageView) findViewById(R.id.imgvPlan);
         imgv4thFloor_Area = (ImageView) findViewById(R.id.imgvPlan_Area);
+
         objDB = new DBHelper(this);
-
         Cursor cursor = objDB.getAllLectures();
-        nrRowsInDatabase = cursor.getCount();
-
-        int nrRows = cursor.getCount();
-
-        if(!isNetworkAvailable()) {
-            if (nrRows != nrRowsInDatabase) {
-                objDB.dropLectures();
-                new RetrieveSchedule().execute();
-            } else if (nrRows < 1) {
-                new RetrieveSchedule().execute();
-                Log.d("nrRows<1: ", "pa u insert asniher");
-            } else {
-                colorRoom("411");
-                Log.d("nrRows>=1: ", "masi te insertohen");
-            }
-        }
-        else
-        {
-            if(nrRows>0)
-            {
-                colorRoom("411");
-            }
-
-        }
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -213,7 +188,6 @@ public class fourthFloorActivity extends AppCompatActivity {
                             lectureClassName, lectureStartTime, lectureEndTime);
                     objDB.insertLecture(lecture);
                 }
-                nrRowsInDatabase = result.length();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

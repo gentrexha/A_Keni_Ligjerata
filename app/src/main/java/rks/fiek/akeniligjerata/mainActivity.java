@@ -1,9 +1,13 @@
 package rks.fiek.akeniligjerata;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +20,20 @@ public class mainActivity extends AppCompatActivity
 {
     private int locationRequestCode;
     TextView txvTitle;
+    private DBHelper objDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        objDB = new DBHelper(this);
+
+        // Asks for permission to use location services
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},locationRequestCode);
+            // locationRequestCode is an app-defined int constant. The callback method gets the result of the request.
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -30,23 +44,32 @@ public class mainActivity extends AppCompatActivity
 
     public void btnPlanOnClick(View v)
     {
-        Intent intPlan = new Intent(this, fourthFloorActivity.class);
-        startActivity(intPlan);
+        Cursor objC = objDB.getAllLectures();
+        if (objC.getCount()>0 || isNetworkAvailable()) {
+            Intent intPlan = new Intent(this, fourthFloorActivity.class);
+            startActivity(intPlan);
+        }
+        else {
+            Intent intNoInt = new Intent(this, noInternetActivitiy.class);
+            startActivity(intNoInt);
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     public void btnMapOnClick(View v)
     {
         Intent intent = new Intent(this, mapsActivity.class);
-        // Asks for permission to use location services
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},locationRequestCode);
-            // locationRequestCode is an app-defined int constant. The callback method gets the result of the request.
-        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             startActivity(intent);
-        else
+        else if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(getApplicationContext(), "Maps doesn't work without location access!", Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},locationRequestCode);
+        }
     }
 
 }

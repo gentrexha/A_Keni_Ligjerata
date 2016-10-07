@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +45,6 @@ public class fourthFloorActivity extends AppCompatActivity {
     ImageView imgv4thFloor_Area;
     ImageView imageView;
     private DBHelper objDB;
-
     private static final String lecturesDBURL = "http://200.6.254.247/my-service.php";
     private static final String commentDBURL = "http://200.6.254.247/comments.php?t=0";
 
@@ -55,13 +55,15 @@ public class fourthFloorActivity extends AppCompatActivity {
 
         imgv4thFloor = (ImageView) findViewById(R.id.imgvPlan);
         imgv4thFloor_Area = (ImageView) findViewById(R.id.imgvPlan_Area);
-
         objDB = new DBHelper(this);
 
         if (isNetworkAvailable())
         {
             new RetrieveSchedule().execute();
             new RetrieveComments().execute();
+        }
+        else {
+            Toast.makeText(this,"Schedule might be not updated! Please connect to the internet to update.",Toast.LENGTH_LONG).show();
         }
 
         chooseRoom("411");

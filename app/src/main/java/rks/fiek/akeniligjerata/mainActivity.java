@@ -15,12 +15,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 
 public class mainActivity extends AppCompatActivity
 {
     private int locationRequestCode;
     TextView txvTitle;
     private DBHelper objDB;
+    float testLight = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,6 +41,18 @@ public class mainActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SensorManager mySensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+
+        Sensor LightSensor = mySensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        if(LightSensor != null){
+            mySensorManager.registerListener(
+                    LightSensorListener,
+                    LightSensor,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
 
         Typeface tfBlackboard = Typeface.createFromAsset(getAssets(),"fonts/BlackBoard.ttf");
         txvTitle = (TextView)findViewById(R.id.txvTitle);
@@ -60,6 +77,46 @@ public class mainActivity extends AppCompatActivity
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
+
+    public void btnTestLight(View view)
+    {
+        if(testLight <= 8)
+        {
+            Toast.makeText(getApplicationContext(), "The light in this place is not preferable to learn.", Toast.LENGTH_SHORT).show();
+        }
+        else if(testLight > 30 && testLight <= 120)
+        {
+            Toast.makeText(getApplicationContext(), "The light in this place is almost good to learn.", Toast.LENGTH_SHORT).show();
+        }
+        else if ( testLight > 120 && testLight <= 250)
+        {
+            Toast.makeText(getApplicationContext(), "The light in this place is good to learn.", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "The light in this place is very good to learn.", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    private final SensorEventListener LightSensorListener
+            = new SensorEventListener(){
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if(event.sensor.getType() == Sensor.TYPE_LIGHT){
+                testLight = event.values[0];
+            }
+        }
+
+    };
 
     public void btnMapOnClick(View v)
     {

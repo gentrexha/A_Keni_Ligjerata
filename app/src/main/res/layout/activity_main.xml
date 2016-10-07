@@ -37,4 +37,15 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/btnRoom"
         android:onClick="btnMapOnClick"/>
+
+    <Button
+        android:id="@+id/btnTestLight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test_light"
+        android:layout_below="@+id/btnRoom"
+        android:layout_marginTop="46dp"
+        android:layout_alignStart="@+id/btnMap"
+        android:layout_alignEnd="@+id/btnRoom"
+        android:onClick="btnTestLight" />
 </RelativeLayout>

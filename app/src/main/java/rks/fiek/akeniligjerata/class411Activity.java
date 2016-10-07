@@ -23,10 +23,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public class class411Activity extends AppCompatActivity {
 
@@ -65,8 +67,8 @@ public class class411Activity extends AppCompatActivity {
     {
         String strContent = content.getText().toString();
         content.setText("");
-        strContent = strContent.replace(" ","%20");
         new InsertComment().execute("411",strContent);
+        Toast.makeText(this,"Successfully posted comment!",Toast.LENGTH_SHORT).show();
     }
 
     public class InsertComment extends AsyncTask<String,Void,Void> {
@@ -78,12 +80,20 @@ public class class411Activity extends AppCompatActivity {
             urlString.append(commentDBURL);
             urlString.append(strparams[0]);
             urlString.append("&commentcontent=");
+            try {
+                strparams[1] = URLEncoder.encode(strparams[1],"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             urlString.append(strparams[1]);
-
             Log.d("URL", urlString.toString());
+
+            // Execute URL here...
 
             HttpURLConnection objURLConnection = null;
             URL objURL;
+            InputStream objInStream = null;
+
             try {
                 objURL = new URL(urlString.toString());
                 objURLConnection = (HttpURLConnection) objURL.openConnection();
@@ -91,13 +101,16 @@ public class class411Activity extends AppCompatActivity {
                 objURLConnection.setDoOutput(true);
                 objURLConnection.setDoInput(true);
                 objURLConnection.connect();
-                objURLConnection.disconnect();
+                objInStream = objURLConnection.getInputStream();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (ProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if (objURLConnection != null) {
+                objURLConnection.disconnect();
             }
             return null;
         }

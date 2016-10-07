@@ -33,6 +33,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+//Reference:
+//http://stackoverflow.com/questions/1200621/how-to-declare-an-array
+//http://stackoverflow.com/questions/3481828/how-to-split-a-string-in-java
+//http://stackoverflow.com/questions/13397709/android-hide-imageview
+
 public class fifthFloorActivity extends AppCompatActivity {
 
     ImageView imgvFifthFloor;

@@ -38,6 +38,11 @@ import java.util.Date;
 
 import static android.support.v7.appcompat.R.id.time;
 
+//Reference:
+//http://stackoverflow.com/questions/1200621/how-to-declare-an-array
+//http://stackoverflow.com/questions/3481828/how-to-split-a-string-in-java
+//http://stackoverflow.com/questions/13397709/android-hide-imageview
+
 public class fourthFloorActivity extends AppCompatActivity {
 
     // ImageViews

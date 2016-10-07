@@ -20,7 +20,7 @@ import java.util.Locale;
 
 class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "akeniligjerata.db";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 1;
 
     public static final String SCHEDULE_TABLE_NAME = "schedule";
     public static final String SCHEDULE_COLUMN_ID = "_id";
@@ -38,18 +38,7 @@ class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE schedule (_id INT PRIMARY KEY NOT NULL, day TEXT NOT NULL, classnumber TEXT NOT NULL, " +
                 "classname TEXT NOT NULL, starttime TEXT NOT NULL, endtime TEXT NOT NULL)");
-    }
-
-    public void insertLecture(Lecture lecture) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(SCHEDULE_COLUMN_ID, lecture.getId());
-        contentValues.put(SCHEDULE_COLUMN_DAY, lecture.getDay());
-        contentValues.put(SCHEDULE_COLUMN_CLASSNUMBER, lecture.getClassnumber());
-        contentValues.put(SCHEDULE_COLUMN_CLASSNAME, lecture.getClassname());
-        contentValues.put(SCHEDULE_COLUMN_STARTTIME, lecture.getStarttime());
-        contentValues.put(SCHEDULE_COLUMN_ENDTIME, lecture.getEndtime());
-        db.insert(SCHEDULE_TABLE_NAME, null, contentValues);
+        db.execSQL("CREATE TABLE comments (_id INT PRIMARY KEY NOT NULL, classroom TEXT NOT NULL, commentcontent TEXT NOT NULL, reg_date TEXT NOT NULL)");
     }
 
     public void insertLecture(int id, String day, String classnumber, String classname, String starttime, String endtime) {
@@ -62,6 +51,16 @@ class DBHelper extends SQLiteOpenHelper {
         contentValues.put(SCHEDULE_COLUMN_STARTTIME, starttime);
         contentValues.put(SCHEDULE_COLUMN_ENDTIME, endtime);
         db.insert(SCHEDULE_TABLE_NAME, null, contentValues);
+    }
+
+    public void insertLectureOrIgnore(int id, String day, String classnumber, String classname, String starttime, String endtime){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT OR IGNORE INTO schedule(_id, day, classnumber, classname, starttime, endtime) VALUES('"+id+"','"+day+"','"+classnumber+"','"+classname+"','"+starttime+"','"+endtime+"')");
+    }
+
+    public void insertCommentOrIgnore(int id, String classroom, String content, String reg_date){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT OR IGNORE INTO comments(_id, classroom, commentcontent, reg_date) VALUES('"+id+"','"+classroom+"','"+content+"','"+reg_date+"')");
     }
 
     public Cursor getAllLectures() {
@@ -77,6 +76,11 @@ class DBHelper extends SQLiteOpenHelper {
         return db.rawQuery("select starttime,endtime from schedule where day='"+day+"' and classnumber='"+classnumber+"'",null);
     }
 
+    public Cursor getClassComments(String classroom) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from comments where classroom='"+classroom+"'",null);
+    }
+
     public Cursor getTodayLectures(String classnumber) {
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
@@ -88,6 +92,11 @@ class DBHelper extends SQLiteOpenHelper {
     public Cursor dropLectures() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("DROP table " + SCHEDULE_TABLE_NAME,null );
+    }
+
+    public Cursor deleteLecture(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("delete from schedule where _id='"+id+"'",null );
     }
 
     @Override

@@ -2,21 +2,38 @@ package rks.fiek.akeniligjerata;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONTokener;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 
 public class class411Activity extends AppCompatActivity {
 
     ListView list;
+    ListView listComments;
+    EditText content;
+    private static final String commentDBURL = "http://200.6.254.247/comments.php?t=1&classroom=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +42,69 @@ public class class411Activity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         list = (ListView)findViewById(R.id.list);
-        DBHelper objDB = new DBHelper(this);
-        final Cursor objCursor = objDB.getTodayLectures("411");
+        listComments = (ListView)findViewById(R.id.listComments);
+        content = (EditText)findViewById(R.id.editText);
 
-        if (objCursor.getCount()>0) {
-            TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, objCursor);
+        DBHelper objDB = new DBHelper(this);
+
+        Cursor lectureCursor = objDB.getTodayLectures("411");
+        Cursor commentsCursor = objDB.getClassComments("411");
+
+        if (lectureCursor.getCount()>0) {
+            lectureCursorAdapter todoAdapter = new lectureCursorAdapter(this, lectureCursor);
             list.setAdapter(todoAdapter);
+        }
+
+        if (commentsCursor.getCount()>0) {
+            commentCursorAdapter todoAdapter = new commentCursorAdapter(this, commentsCursor);
+            listComments.setAdapter(todoAdapter);
         }
     }
 
-    public class TodoCursorAdapter extends CursorAdapter {
-        public TodoCursorAdapter(Context context, Cursor cursor) {
+    public void btnAddOnClick(View v)
+    {
+        String strContent = content.getText().toString();
+        content.setText("");
+        strContent = strContent.replace(" ","%20");
+        new InsertComment().execute("411",strContent);
+    }
+
+    public class InsertComment extends AsyncTask<String,Void,Void> {
+
+        @Override
+        protected Void doInBackground(String... strparams) {
+
+            StringBuilder urlString = new StringBuilder();
+            urlString.append(commentDBURL);
+            urlString.append(strparams[0]);
+            urlString.append("&commentcontent=");
+            urlString.append(strparams[1]);
+
+            Log.d("URL", urlString.toString());
+
+            HttpURLConnection objURLConnection = null;
+            URL objURL;
+            try {
+                objURL = new URL(urlString.toString());
+                objURLConnection = (HttpURLConnection) objURL.openConnection();
+                objURLConnection.setRequestMethod("GET");
+                objURLConnection.setDoOutput(true);
+                objURLConnection.setDoInput(true);
+                objURLConnection.connect();
+                objURLConnection.disconnect();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public class lectureCursorAdapter extends CursorAdapter {
+        public lectureCursorAdapter(Context context, Cursor cursor) {
             super(context, cursor, 0);
         }
 
@@ -62,6 +131,34 @@ public class class411Activity extends AppCompatActivity {
             txvClassname.setText(classname);
             txvStarttime.setText(starttime);
             txvEndtime.setText(endtime);
+        }
+    }
+
+    public class commentCursorAdapter extends CursorAdapter {
+        public commentCursorAdapter(Context context, Cursor cursor) {
+            super(context, cursor, 0);
+        }
+
+        // The newView method is used to inflate a new view and return it,
+        // you don't bind any data to the view at this point.
+        @Override
+        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+            return LayoutInflater.from(context).inflate(R.layout.comment_info, parent, false);
+        }
+
+        // The bindView method is used to bind all data to a given view
+        // such as setting the text on a TextView.
+        @Override
+        public void bindView(View view, Context context, Cursor cursor) {
+            // Find fields to populate in inflated template
+            TextView txvComment = (TextView) view.findViewById(R.id.txvComment);
+            TextView txvDate = (TextView) view.findViewById(R.id.txvDate);
+            // Extract properties from cursor
+            String content = cursor.getString(cursor.getColumnIndexOrThrow("commentcontent"));
+            String reg_date = cursor.getString(cursor.getColumnIndexOrThrow("reg_date"));
+            // Populate fields with extracted properties
+            txvComment.setText(content);
+            txvDate.setText("Commetend on: "+reg_date);
         }
     }
 }

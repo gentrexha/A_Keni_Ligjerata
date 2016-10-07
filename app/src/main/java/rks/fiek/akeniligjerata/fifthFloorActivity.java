@@ -60,16 +60,9 @@ public class fifthFloorActivity extends AppCompatActivity {
 
         if (isNetworkAvailable())
         {
-            // KA INTERNET
-            objDB.dropLectures();
             new RetrieveSchedule().execute();
         }
-        // SKA INTERNET, DUHET ME NDREQ!!!
-        else{
-            if (cursor.getCount()>0) {
-                Toast.makeText(getApplicationContext(), "Schedule might be outdated! Please connect to the internet to update schedule!", Toast.LENGTH_LONG).show();
-            }
-        }
+
 
         chooseRoom("507");
         chooseRoom("511");

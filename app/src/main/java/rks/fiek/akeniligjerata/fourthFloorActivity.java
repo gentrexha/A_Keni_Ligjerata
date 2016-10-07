@@ -6,18 +6,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.renderscript.Allocation;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,15 +25,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static android.support.v7.appcompat.R.id.time;
 
 //Reference:
 //http://stackoverflow.com/questions/1200621/how-to-declare-an-array
@@ -45,14 +39,14 @@ import static android.support.v7.appcompat.R.id.time;
 
 public class fourthFloorActivity extends AppCompatActivity {
 
-    // ImageViews
+    // Variables
     ImageView imgv4thFloor;
     ImageView imgv4thFloor_Area;
     ImageView imageView;
-
     private DBHelper objDB;
 
-    private static final String dbURL = "http://200.6.254.247/my-service.php";
+    private static final String lecturesDBURL = "http://200.6.254.247/my-service.php";
+    private static final String commentDBURL = "http://200.6.254.247/comments.php?t=0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,19 +57,11 @@ public class fourthFloorActivity extends AppCompatActivity {
         imgv4thFloor_Area = (ImageView) findViewById(R.id.imgvPlan_Area);
 
         objDB = new DBHelper(this);
-        Cursor cursor = objDB.getAllLectures();
 
         if (isNetworkAvailable())
         {
-            // KA INTERNET
-            objDB.dropLectures();
             new RetrieveSchedule().execute();
-        }
-        // SKA INTERNET, DUHET ME NDREQ!!!
-        else{
-            if (cursor.getCount()>0) {
-                Toast.makeText(getApplicationContext(), "Schedule might be outdated! Please connect to the internet to update schedule!", Toast.LENGTH_LONG).show();
-            }
+            new RetrieveComments().execute();
         }
 
         chooseRoom("411");
@@ -165,7 +151,7 @@ public class fourthFloorActivity extends AppCompatActivity {
         protected JSONArray doInBackground(Void... voids) {
 
             StringBuilder urlString = new StringBuilder();
-            urlString.append(dbURL);
+            urlString.append(lecturesDBURL);
 
             HttpURLConnection objURLConnection = null;
             URL objURL;
@@ -220,7 +206,79 @@ public class fourthFloorActivity extends AppCompatActivity {
                     String lectureClassName = jsonObjectLecture.getString("classname");
                     String lectureStartTime = jsonObjectLecture.getString("starttime");
                     String lectureEndTime = jsonObjectLecture.getString("endtime");
-                    objDB.insertLecture(lectureID, lectureDay, lectureClassNumber,lectureClassName, lectureStartTime, lectureEndTime);
+                    objDB.insertLectureOrIgnore(lectureID, lectureDay, lectureClassNumber,lectureClassName, lectureStartTime, lectureEndTime);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public class RetrieveComments extends AsyncTask<Void,Void,JSONArray>{
+
+        Exception mException;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            this.mException = null;
+        }
+
+        @Override
+        protected JSONArray doInBackground(Void... voids) {
+            StringBuilder urlString = new StringBuilder();
+            urlString.append(commentDBURL);
+
+            HttpURLConnection objURLConnection = null;
+            URL objURL;
+            JSONArray objJSON = null;
+            InputStream objInStream = null;
+
+            try {
+                objURL = new URL(urlString.toString());
+                objURLConnection = (HttpURLConnection) objURL.openConnection();
+                objURLConnection.setRequestMethod("GET");
+                objURLConnection.setDoOutput(true);
+                objURLConnection.setDoInput(true);
+                objURLConnection.connect();
+                objInStream = objURLConnection.getInputStream();
+                BufferedReader objBReader = new BufferedReader(new InputStreamReader(objInStream));
+                String line;
+                String response = "";
+                while ((line = objBReader.readLine()) != null) {
+                    response += line;
+                }
+                objJSON = (JSONArray) new JSONTokener(response).nextValue();
+            } catch (Exception e) {
+                this.mException = e;
+            } finally {
+                if (objInStream != null) {
+                    try {
+                        objInStream.close(); // this will close the bReader as well
+                    } catch (IOException ignored) {
+                    }
+                }
+                if (objURLConnection != null) {
+                    objURLConnection.disconnect();
+                }
+            }
+            return objJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray result) {
+            super.onPostExecute(result);
+            if (this.mException != null) {
+                Log.e("JSON Exception", this.mException.toString());
+            }
+            try {
+                for (int i = 0; i < result.length(); i++) {
+                    JSONObject jsonObjectLecture = result.getJSONObject(i);
+                    int commentID = jsonObjectLecture.getInt("id");
+                    String commentClassroom = jsonObjectLecture.getString("classroom");
+                    String commentContent = jsonObjectLecture.getString("commentcontent");
+                    String reg_date = jsonObjectLecture.getString("reg_date");
+                    objDB.insertCommentOrIgnore(commentID, commentClassroom, commentContent,reg_date);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

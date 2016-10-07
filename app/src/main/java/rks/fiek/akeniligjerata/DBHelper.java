@@ -78,7 +78,7 @@ class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getClassComments(String classroom) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("select * from comments where classroom='"+classroom+"'",null);
+        return db.rawQuery("select * from comments where classroom='"+classroom+"' order by reg_date desc",null);
     }
 
     public Cursor getTodayLectures(String classnumber) {

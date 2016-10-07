@@ -2,21 +2,36 @@ package rks.fiek.akeniligjerata;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class class507Activity extends AppCompatActivity {
 
     ListView list;
     ListView listComments;
+    EditText content;
+    private static final String commentDBURL = "http://200.6.254.247/comments.php?t=1&classroom=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +41,7 @@ public class class507Activity extends AppCompatActivity {
 
         list = (ListView)findViewById(R.id.list);
         listComments = (ListView)findViewById(R.id.listComments);
+        content = (EditText)findViewById(R.id.editText);
         DBHelper objDB = new DBHelper(this);
 
         Cursor lectureCursor = objDB.getTodayLectures("507");
@@ -39,6 +55,59 @@ public class class507Activity extends AppCompatActivity {
         if (commentsCursor.getCount()>0) {
             commentCursorAdapter todoAdapter = new commentCursorAdapter(this, commentsCursor);
             listComments.setAdapter(todoAdapter);
+        }
+    }
+
+    public void btnAddOnClick(View v)
+    {
+        String strContent = content.getText().toString();
+        content.setText("");
+        new InsertComment().execute("507",strContent);
+        Toast.makeText(this,"Successfully posted comment!",Toast.LENGTH_SHORT).show();
+    }
+
+    public class InsertComment extends AsyncTask<String,Void,Void> {
+
+        @Override
+        protected Void doInBackground(String... strparams) {
+
+            StringBuilder urlString = new StringBuilder();
+            urlString.append(commentDBURL);
+            urlString.append(strparams[0]);
+            urlString.append("&commentcontent=");
+            try {
+                strparams[1] = URLEncoder.encode(strparams[1],"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            urlString.append(strparams[1]);
+            Log.d("URL", urlString.toString());
+
+            // Execute URL here...
+
+            HttpURLConnection objURLConnection = null;
+            URL objURL;
+            InputStream objInStream = null;
+
+            try {
+                objURL = new URL(urlString.toString());
+                objURLConnection = (HttpURLConnection) objURL.openConnection();
+                objURLConnection.setRequestMethod("GET");
+                objURLConnection.setDoOutput(true);
+                objURLConnection.setDoInput(true);
+                objURLConnection.connect();
+                objInStream = objURLConnection.getInputStream();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (objURLConnection != null) {
+                objURLConnection.disconnect();
+            }
+            return null;
         }
     }
 

@@ -36,7 +36,8 @@
         android:id="@+id/btnAdd"
         android:layout_alignParentEnd="true"
         android:layout_alignBottom="@+id/editText"
-        android:layout_alignTop="@+id/editText" />
+        android:layout_alignTop="@+id/editText"
+        android:onClick="btnAddOnClick" />
 
     <ListView
         android:id="@+id/list"

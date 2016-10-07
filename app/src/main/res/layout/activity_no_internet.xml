@@ -8,7 +8,7 @@
     tools:context="rks.fiek.akeniligjerata.noInternetActivitiy">
 
     <TextView
-        android:text="We're sorry, but please connect to the internet and download the schedule for this app to work!"
+        android:text="@string/no_internet_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txvInfo"

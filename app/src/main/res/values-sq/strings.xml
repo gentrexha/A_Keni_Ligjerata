@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A keni ligjerata?</string>
+    <string name="Schedule_for_today_401">Orari per sot</string>
+    <string name="comments_401">Kommentet</string>
+    <string name="comments_408">Kommentet</string>
+    <string name="comments_411">Kommentet</string>
+    <string name="comments_414">Kommentet</string>
+    <string name="comments_415">Kommentet</string>
+    <string name="comments_507">Kommentet</string>
+    <string name="comments_511">Kommentet</string>
+    <string name="comments_521">Kommentet</string>
+    <string name="comments_526">Kommentet</string>
+    <string name="do_you_have_classes">A keni ligjerata?</string>
+    <string name="find_me_a_room">Gjej nje dhome</string>
+    <string name="no_internet_info"></string>
+    <string name="post_401">Shto</string>
+    <string name="post_408">Shto</string>
+    <string name="post_411">Shto</string>
+    <string name="post_414">Shto</string>
+    <string name="post_415">Shto</string>
+    <string name="post_507">Shto</string>
+    <string name="post_511">Shto</string>
+    <string name="post_521">Shto</string>
+    <string name="post_526">Shto</string>
+    <string name="title_activity_maps">Harta</string>
+    <string name="take_me_to_fiek">Qom n\'teknik</string>
+    <string name="schedule_for_today_526">Orari per sot</string>
+    <string name="schedule_for_today_521">Orari per sot</string>
+    <string name="schedule_for_today_511">Orari per sot</string>
+    <string name="schedule_for_today_507">Orari per sot</string>
+    <string name="schedule_for_today_415">Orari per sot</string>
+    <string name="schedule_for_today_414">Orari per sot</string>
+    <string name="schedule_for_today_411">Orari per sot</string>
+    <string name="schedule_for_today_408">Orari per sot</string>
+    <string name="your_comment_here_401">Kommenti juaj ketu</string>
+    <string name="your_comment_here_408">Kommenti juaj ketu</string>
+    <string name="your_comment_here_411">Kommenti juaj ketu</string>
+    <string name="your_comment_here_414">Kommenti juaj ketu</string>
+    <string name="your_comment_here_415">Kommenti juaj ketu</string>
+    <string name="your_comment_here_507">Kommenti juaj ketu</string>
+    <string name="your_comment_here_511">Kommenti juaj ketu</string>
+    <string name="your_comment_here_521">Kommenti juaj ketu</string>
+    <string name="your_comment_here_526">Kommenti juaj ketu</string>
+</resources>

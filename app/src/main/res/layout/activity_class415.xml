@@ -16,7 +16,7 @@
         android:scaleType="centerCrop"/>
 
     <TextView
-        android:text="Schedule for today"
+        android:text="@string/schedule_for_today_415"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
@@ -30,7 +30,7 @@
         android:textColor="#FFFFFF"/>
 
     <Button
-        android:text="Post"
+        android:text="@string/post_415"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnAdd"
@@ -48,7 +48,7 @@
     </ListView>
 
     <TextView
-        android:text="Comments"
+        android:text="@string/comments_415"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/list"
@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:hint="Your comment here"
+        android:hint="@string/your_comment_here_415"
         android:ems="10"
         android:id="@+id/editText"
         android:layout_alignParentBottom="true"

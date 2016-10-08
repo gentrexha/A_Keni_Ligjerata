@@ -28,6 +28,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 //Reference:
@@ -53,7 +54,6 @@ public class fifthFloorActivity extends AppCompatActivity {
         imgvFifthFloorArea = (ImageView) findViewById(R.id.imgvFifthArea);
 
         objDB = new DBHelper(this);
-        Cursor cursor = objDB.getAllLectures();
 
         if (isNetworkAvailable())
         {
@@ -122,13 +122,9 @@ public class fifthFloorActivity extends AppCompatActivity {
     }
 
     public boolean closeMatch (int color1, int color2, int tolerance) {
-        if ( Math.abs (Color.red (color1) - Color.red (color2)) > tolerance )
-            return false;
-        if ( Math.abs (Color.green (color1) - Color.green (color2)) > tolerance )
-            return false;
-        if ( Math.abs (Color.blue (color1) - Color.blue (color2)) > tolerance )
-            return false;
-        return true;
+        return Math.abs(Color.blue(color1) - Color.blue(color2)) <= tolerance
+                && Math.abs (Color.green (color1) - Color.green (color2)) <= tolerance
+                && Math.abs (Color.red (color1) - Color.red (color2)) <= tolerance;
     }
 
     private boolean isNetworkAvailable() {
@@ -247,9 +243,11 @@ public class fifthFloorActivity extends AppCompatActivity {
             {
                 // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
-                int hour = date.getHours();
-                int minutes = date.getMinutes();
-                int seconds = date.getSeconds();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                int hour = cal.get(Calendar.HOUR);
+                int minutes = cal.get(Calendar.MINUTE);
+                int seconds = cal.get(Calendar.SECOND);
                 String[] parts1 = startTime.get(i).split(":");
                 int[] NrStartTime = {Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), Integer.parseInt(parts1[2])};
                 String[] parts2 = endTime.get(i).split(":");

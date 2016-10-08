@@ -1,9 +1,5 @@
 package rks.fiek.akeniligjerata;
 
-/**
- * Created by GentR on 05-Oct-16 at 4:18 AM.
- */
-
 public class Lecture {
     private int id;
     private String day;

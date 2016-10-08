@@ -1,9 +1,5 @@
 package rks.fiek.akeniligjerata;
 
-/**
- * Created by GentR on 06-Oct-16 at 4:18 AM.
- */
-
 /*
  * TouchImageView.java
  * By: Michael Ortiz
@@ -15,7 +11,6 @@ package rks.fiek.akeniligjerata;
  * -------------------
  * Extends Android ImageView to include pinch zooming, panning, fling and double tap zoom.
  */
-
 
 import android.annotation.TargetApi;
         import android.content.Context;

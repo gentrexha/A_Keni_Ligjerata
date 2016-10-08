@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -156,7 +157,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             StringBuilder sb = new StringBuilder();
 
-            String line = "";
+            String line;
             while ((line = br.readLine()) != null)
             {
                 sb.append(line);
@@ -173,8 +174,10 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         finally
         {
-            iStream.close();
-            urlConnection.disconnect();
+            if(iStream != null)
+                iStream.close();
+            if (urlConnection != null)
+                urlConnection.disconnect();
         }
         return data;
     }
@@ -437,7 +440,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult)
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
     {
 
     }
@@ -449,13 +452,10 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void checkGPSStatus()
     {
-        LocationManager locationManager = null;
+        LocationManager locationManager;
         boolean gps_enabled = false;
         boolean network_enabled = false;
-        if ( locationManager == null )
-        {
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        }
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         try
         {
             gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);

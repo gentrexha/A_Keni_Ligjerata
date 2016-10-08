@@ -1,9 +1,5 @@
 package rks.fiek.akeniligjerata;
 
-/**
- * Created by GentR on 04-Oct-16 at 4:18 AM.
- */
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

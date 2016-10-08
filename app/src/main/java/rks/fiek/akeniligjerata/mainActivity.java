@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class mainActivity extends AppCompatActivity
 {
     private int locationRequestCode;
-    TextView txvTitle;
+    private TextView txvTitle;
     private DBHelper objDB;
     // float testLight = 15;
 

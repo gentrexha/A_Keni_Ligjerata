@@ -38,9 +38,9 @@ import java.util.Date;
 
 public class fifthFloorActivity extends AppCompatActivity {
 
-    ImageView imgvFifthFloor;
-    ImageView imgvFifthFloorArea;
-    ImageView imageView;
+    private ImageView imgvFifthFloor;
+    private ImageView imgvFifthFloorArea;
+    private ImageView imageView;
 
     private DBHelper objDB;
     private static final String dbURL = "http://200.6.254.247/my-service.php";
@@ -113,7 +113,7 @@ public class fifthFloorActivity extends AppCompatActivity {
 
     }
 
-    public int getHotspotColor (int hotspotId, int x, int y) {
+    private int getHotspotColor(int hotspotId, int x, int y) {
         ImageView img = (ImageView) findViewById (hotspotId);
         img.setDrawingCacheEnabled(true);
         Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
@@ -121,7 +121,7 @@ public class fifthFloorActivity extends AppCompatActivity {
         return hotspots.getPixel(x, y);
     }
 
-    public boolean closeMatch (int color1, int color2, int tolerance) {
+    private boolean closeMatch(int color1, int color2, int tolerance) {
         return Math.abs(Color.blue(color1) - Color.blue(color2)) <= tolerance
                 && Math.abs (Color.green (color1) - Color.green (color2)) <= tolerance
                 && Math.abs (Color.red (color1) - Color.red (color2)) <= tolerance;
@@ -213,7 +213,7 @@ public class fifthFloorActivity extends AppCompatActivity {
         }
     }
 
-    public void colorAvailability(String classnumber) {
+    private void colorAvailability(String classnumber) {
 
         Cursor objCursor = objDB.getTodayLecturesTimes(classnumber);
         ArrayList<String> startTime = new ArrayList<>();

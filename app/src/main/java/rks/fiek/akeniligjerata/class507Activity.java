@@ -34,11 +34,11 @@ import java.net.URLEncoder;
 
 public class class507Activity extends AppCompatActivity {
 
-    ListView list;
-    ListView listComments;
-    EditText content;
+    private ListView list;
+    private ListView listComments;
+    private EditText content;
     private static final String commentDBURL = "http://200.6.254.247/comments.php?t=1&classroom=";
-    DBHelper objDB;
+    private DBHelper objDB;
     private static final String commentDBURL2 = "http://200.6.254.247/comments.php?t=0";
 
     @Override
@@ -50,7 +50,7 @@ public class class507Activity extends AppCompatActivity {
         list = (ListView)findViewById(R.id.list);
         listComments = (ListView)findViewById(R.id.listComments);
         content = (EditText)findViewById(R.id.editText);
-        DBHelper objDB = new DBHelper(this);
+        objDB = new DBHelper(this);
 
         Cursor lectureCursor = objDB.getTodayLectures("507");
         Cursor commentsCursor = objDB.getClassComments("507");
@@ -72,7 +72,7 @@ public class class507Activity extends AppCompatActivity {
         if (isNetworkAvailable()) {
             String strContent = content.getText().toString();
             content.setText("");
-            new InsertComment().execute("401", strContent);
+            new InsertComment().execute("507", strContent);
             Toast.makeText(this, "Successfully posted comment!", Toast.LENGTH_SHORT).show();
             new RetrieveComments().execute();
         }
@@ -85,7 +85,7 @@ public class class507Activity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
-    public class InsertComment extends AsyncTask<String,Void,Void> {
+    private class InsertComment extends AsyncTask<String,Void,Void> {
 
         @Override
         protected Void doInBackground(String... strparams) {

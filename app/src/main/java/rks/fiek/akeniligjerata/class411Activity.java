@@ -34,12 +34,12 @@ import java.net.URLEncoder;
 
 public class class411Activity extends AppCompatActivity {
 
-    ListView list;
-    ListView listComments;
-    EditText content;
+    private ListView list;
+    private ListView listComments;
+    private EditText content;
     private static final String commentDBURL = "http://200.6.254.247/comments.php?t=1&classroom=";
     private static final String commentDBURL2 = "http://200.6.254.247/comments.php?t=0";
-    DBHelper objDB;
+    private DBHelper objDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class class411Activity extends AppCompatActivity {
         Toast.makeText(this,"Please connect to the internet to post comments.", Toast.LENGTH_LONG).show();
     }
 
-    public class InsertComment extends AsyncTask<String,Void,Void> {
+    private class InsertComment extends AsyncTask<String,Void,Void> {
 
         @Override
         protected Void doInBackground(String... strparams) {

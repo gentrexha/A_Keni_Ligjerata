@@ -34,10 +34,10 @@ import java.net.URLEncoder;
 
 public class class408Activity extends AppCompatActivity {
 
-    ListView list;
-    ListView listComments;
-    EditText content;
-    DBHelper objDB;
+    private ListView list;
+    private ListView listComments;
+    private EditText content;
+    private DBHelper objDB;
     private static final String commentDBURL = "http://200.6.254.247/comments.php?t=1&classroom=";
     private static final String commentDBURL2 = "http://200.6.254.247/comments.php?t=0";
 
@@ -85,7 +85,7 @@ public class class408Activity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
-    public class InsertComment extends AsyncTask<String,Void,Void> {
+    private class InsertComment extends AsyncTask<String,Void,Void> {
 
         @Override
         protected Void doInBackground(String... strparams) {
@@ -126,7 +126,7 @@ public class class408Activity extends AppCompatActivity {
     }
 
     public class lectureCursorAdapter extends CursorAdapter {
-        public lectureCursorAdapter(Context context, Cursor cursor) {
+        lectureCursorAdapter(Context context, Cursor cursor) {
             super(context, cursor, 0);
         }
 

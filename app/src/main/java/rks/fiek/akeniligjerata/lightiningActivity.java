@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 public class lightiningActivity extends AppCompatActivity {
 
-    TextView txvInfo;
-    TextView txvInfo2;
-    float LightValue = 0;
+    private TextView txvInfo;
+    private TextView txvInfo2;
+    private float LightValue = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

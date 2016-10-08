@@ -53,14 +53,14 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationListener {
 
     private GoogleMap mMap;
-    ArrayList<LatLng> MarkerPoints;
+    private ArrayList<LatLng> MarkerPoints;
     // Provides the entry point to Google Play services.
-    GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient mGoogleApiClient;
     // Represents a geographical location.
-    Location mLastLocation;
-    Marker mCurrLocationMarker;
+    private Location mLastLocation;
+    private Marker mCurrLocationMarker;
     // Stores parameters for requests to the FusedLocationProviderApi.
-    LocationRequest mLocationRequest;
+    private LocationRequest mLocationRequest;
     // App-defined int constant
     private int locationRequestCode;
 
@@ -324,7 +324,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
     }
-    protected void startLocationUpdates()
+    private void startLocationUpdates()
     {
         // Asks for permission to use location services
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -336,7 +336,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
-    protected void createLocationRequest()
+    private void createLocationRequest()
     {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(5000);
@@ -445,7 +445,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    protected void stopLocationUpdates()
+    private void stopLocationUpdates()
     {
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }

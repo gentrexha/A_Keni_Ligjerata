@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 public class noInternetActivitiy extends AppCompatActivity {
 
-    TextView txvInfo;
+    private TextView txvInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

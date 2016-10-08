@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,11 +67,7 @@ public class fourthFloorActivity extends AppCompatActivity {
             Toast.makeText(this,"Schedule might be not updated! Please connect to the internet to update.",Toast.LENGTH_LONG).show();
         }
 
-        colorAvailability("411");
-        colorAvailability("401");
-        colorAvailability("408");
-        colorAvailability("414");
-        colorAvailability("415");
+
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -208,6 +206,11 @@ public class fourthFloorActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            colorAvailability("411");
+            colorAvailability("401");
+            colorAvailability("408");
+            colorAvailability("414");
+            colorAvailability("415");
         }
     }
 
@@ -295,9 +298,7 @@ public class fourthFloorActivity extends AppCompatActivity {
             for (objCursor.moveToFirst(); !objCursor.isAfterLast(); objCursor.moveToNext()) {
                 // TO DO code here
                 startTime.add(objCursor.getString(0));
-                Log.d("STARTTIME", "colorAvailability: "+objCursor.getString(0));
                 endTime.add(objCursor.getString(1));
-                Log.d("ENDTIME", "colorAvailability: "+objCursor.getString(1));
             }
         }
 
@@ -313,86 +314,40 @@ public class fourthFloorActivity extends AppCompatActivity {
             int numberOfRows = startTime.size();
             for (int i = 0; i < numberOfRows; i++)
             {
-                // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                Date date = new Date();
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(date);
-                int hour = cal.get(Calendar.HOUR_OF_DAY);
-                int minutes = cal.get(Calendar.MINUTE);
-                int seconds = cal.get(Calendar.SECOND);
-                Log.d("CURRENTIME", "colorAvailability: "+hour+minutes+seconds);
-                String[] parts1 = startTime.get(i).split(":");
-                int[] NrStartTime = {Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), Integer.parseInt(parts1[2])};
-                Log.d("AFTER SPLITTING", "colorAvailability: "+NrStartTime[0]+" "+NrStartTime[1]);
-                String[] parts2 = endTime.get(i).split(":");
-                int[] NrEndTime = {Integer.parseInt(parts2[0]), Integer.parseInt(parts2[1]), Integer.parseInt(parts2[2])};
+                try {
+                    Date date = new Date();
+                    Calendar now = Calendar.getInstance();
+                    now.setTime(date);
+                    int hour = now.get(Calendar.HOUR_OF_DAY);
+                    int minutes = now.get(Calendar.MINUTE);
+                    int seconds = now.get(Calendar.SECOND);
 
-                if(NrStartTime[0] <= hour && hour <= NrEndTime[0])
-                {
-                    Log.d("INFO", "Ora eshte brenda lecture");
-                    if(NrStartTime[1] <= minutes && NrEndTime[1] <= minutes)
-                    {
-                        if(NrStartTime[2] <= seconds)
-                        {
-                            String nrClass = "imgvClass" + classnumber +"Red";
-                            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
-                            imageView = (ImageView) findViewById(resID);
-                            imageView.setVisibility(View.VISIBLE);
-                        }
-                        else
-                        {
-                            String nrClass = "imgvClass" + classnumber +"Green";
-                            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
-                            imageView = (ImageView) findViewById(resID);
-                            imageView.setVisibility(View.VISIBLE);
-                        }
-                    }
-                    else if(NrStartTime[0] < hour && NrEndTime[0] <= hour)
-                    {
-                        if(NrEndTime[1] <= minutes)
-                        {
-                            if(NrStartTime[2] <= seconds)
-                            {
-                                String nrClass = "imgvClass" + classnumber +"Red";
-                                int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
-                                imageView = (ImageView) findViewById(resID);
-                                imageView.setVisibility(View.VISIBLE);
+                    String strStarttime = startTime.get(i);
+                    String strEndtime = endTime.get(i);
 
-                            }
-                            else
-                            {
-                                String nrClass = "imgvClass" + classnumber +"Green";
-                                int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
-                                imageView = (ImageView) findViewById(resID);
-                                imageView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                        else
-                        {
-                            String nrClass = "imgvClass" + classnumber +"Green";
-                            int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
-                            imageView = (ImageView) findViewById(resID);
-                            imageView.setVisibility(View.VISIBLE);
-                        }
+                    Date dtStarttime = new SimpleDateFormat("HH:mm:ss").parse(strStarttime);
+                    Calendar cStarttime = Calendar.getInstance();
+                    cStarttime.setTime(dtStarttime);
 
-                    }
-                    else
-                    {
-                        String nrClass = "imgvClass" + classnumber +"Green";
+                    Date dtEndtime = new SimpleDateFormat("HH:mm:ss").parse(strEndtime);
+                    Calendar cEndtime = Calendar.getInstance();
+                    cStarttime.setTime(dtEndtime);
+
+                    if (now.after(cStarttime.getTime()) && now.before(cEndtime.getTime())) {
+                        String nrClass = "imgvClass" + classnumber + "Green";
                         int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
                         imageView = (ImageView) findViewById(resID);
                         imageView.setVisibility(View.VISIBLE);
                     }
+                    else {
+                        String nrClass = "imgvClass" + classnumber + "Red";
+                        int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                        imageView = (ImageView) findViewById(resID);
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                else
-                {
-                    String nrClass = "imgvClass" + classnumber +"Green";
-                    int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
-                    imageView = (ImageView) findViewById(resID);
-                    imageView.setVisibility(View.VISIBLE);
-                }
-
-
             }
         }
 

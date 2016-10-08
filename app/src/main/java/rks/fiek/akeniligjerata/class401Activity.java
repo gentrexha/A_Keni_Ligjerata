@@ -2,6 +2,8 @@ package rks.fiek.akeniligjerata;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -68,12 +70,14 @@ public class class401Activity extends AppCompatActivity {
     // Suppressed because that's the default signature for onClick methods
     public void btnAddOnClick(@SuppressWarnings("UnusedParameters") View v)
     {
-        String strContent = content.getText().toString();
-        content.setText("");
-        new InsertComment().execute("401",strContent);
-        Toast.makeText(this,"Successfully posted comment!",Toast.LENGTH_SHORT).show();
-
-        new RetrieveComments().execute();
+        if (isNetworkAvailable()) {
+            String strContent = content.getText().toString();
+            content.setText("");
+            new InsertComment().execute("401", strContent);
+            Toast.makeText(this, "Successfully posted comment!", Toast.LENGTH_SHORT).show();
+            new RetrieveComments().execute();
+        }
+        Toast.makeText(this,"Please connect to the internet to post comments.", Toast.LENGTH_LONG).show();
     }
 
     public class InsertComment extends AsyncTask<String,Void,Void> {
@@ -250,5 +254,11 @@ public class class401Activity extends AppCompatActivity {
                 listComments.setAdapter(todoAdapter);
             }
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }

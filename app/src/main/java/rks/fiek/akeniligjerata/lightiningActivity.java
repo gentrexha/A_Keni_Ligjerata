@@ -39,7 +39,8 @@ public class lightiningActivity extends AppCompatActivity {
         }
     }
 
-    public void btnTestLightOnClick(View v)
+    // Suppressed because that's the default signature for onClick methods
+    public void btnTestLightOnClick(@SuppressWarnings("UnusedParameters") View v)
     {
         if(LightValue <= 8)
         {

@@ -45,7 +45,8 @@ public class mainActivity extends AppCompatActivity
         txvTitle.setTypeface(tfBlackboard);
     }
 
-    public void btnPlanOnClick(View v)
+    // Suppressed because that's the default signature for onClick methods
+    public void btnPlanOnClick(@SuppressWarnings("UnusedParameters") View v)
     {
         Cursor objC = objDB.getAllLectures();
         if (objC.getCount()>0 || isNetworkAvailable()) {
@@ -64,13 +65,15 @@ public class mainActivity extends AppCompatActivity
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
-    public void btnTestLight(View view)
+    // Suppressed because that's the default signature for onClick methods
+    public void btnTestLight(@SuppressWarnings("UnusedParameters") View view)
     {
         Intent intLightning = new Intent(this, lightiningActivity.class);
         startActivity(intLightning);
     }
 
-    public void btnMapOnClick(View v)
+    // Suppressed because that's the default signature for onClick methods
+    public void btnMapOnClick(@SuppressWarnings("UnusedParameters") View v)
     {
         Intent intent = new Intent(this, mapsActivity.class);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)

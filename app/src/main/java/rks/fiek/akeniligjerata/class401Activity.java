@@ -16,7 +16,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -27,7 +35,10 @@ public class class401Activity extends AppCompatActivity {
     ListView list;
     ListView listComments;
     EditText content;
+    DBHelper objDB;
+    private static final String commentDBURL2 = "http://200.6.254.247/comments.php?t=0";
     private static final String commentDBURL = "http://200.6.254.247/comments.php?t=1&classroom=";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +49,7 @@ public class class401Activity extends AppCompatActivity {
         list = (ListView)findViewById(R.id.list);
         listComments = (ListView)findViewById(R.id.listComments);
         content = (EditText)findViewById(R.id.editText);
-        DBHelper objDB = new DBHelper(this);
+        objDB = new DBHelper(this);
 
         Cursor lectureCursor = objDB.getTodayLectures("401");
         Cursor commentsCursor = objDB.getClassComments("401");
@@ -54,12 +65,15 @@ public class class401Activity extends AppCompatActivity {
         }
     }
 
-    public void btnAddOnClick(View v)
+    // Suppressed because that's the default signature for onClick methods
+    public void btnAddOnClick(@SuppressWarnings("UnusedParameters") View v)
     {
         String strContent = content.getText().toString();
         content.setText("");
         new InsertComment().execute("401",strContent);
         Toast.makeText(this,"Successfully posted comment!",Toast.LENGTH_SHORT).show();
+
+        new RetrieveComments().execute();
     }
 
     public class InsertComment extends AsyncTask<String,Void,Void> {
@@ -158,6 +172,83 @@ public class class401Activity extends AppCompatActivity {
             // Populate fields with extracted properties
             txvComment.setText(content);
             txvDate.setText(getString(R.string.commented_on)+reg_date);
+        }
+    }
+
+    public class RetrieveComments extends AsyncTask<Void,Void,JSONArray>{
+
+        Exception mException;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            this.mException = null;
+        }
+
+        @Override
+        protected JSONArray doInBackground(Void... voids) {
+            StringBuilder urlString = new StringBuilder();
+            urlString.append(commentDBURL2);
+
+            HttpURLConnection objURLConnection = null;
+            URL objURL;
+            JSONArray objJSON = null;
+            InputStream objInStream = null;
+
+            try {
+                objURL = new URL(urlString.toString());
+                objURLConnection = (HttpURLConnection) objURL.openConnection();
+                objURLConnection.setRequestMethod("GET");
+                objURLConnection.setDoOutput(true);
+                objURLConnection.setDoInput(true);
+                objURLConnection.connect();
+                objInStream = objURLConnection.getInputStream();
+                BufferedReader objBReader = new BufferedReader(new InputStreamReader(objInStream));
+                String line;
+                String response = "";
+                while ((line = objBReader.readLine()) != null) {
+                    response += line;
+                }
+                objJSON = (JSONArray) new JSONTokener(response).nextValue();
+            } catch (Exception e) {
+                this.mException = e;
+            } finally {
+                if (objInStream != null) {
+                    try {
+                        objInStream.close(); // this will close the bReader as well
+                    } catch (IOException ignored) {
+                    }
+                }
+                if (objURLConnection != null) {
+                    objURLConnection.disconnect();
+                }
+            }
+            return objJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray result) {
+            super.onPostExecute(result);
+            if (this.mException != null) {
+                Log.e("JSON Exception", this.mException.toString());
+            }
+            try {
+                for (int i = 0; i < result.length(); i++) {
+                    JSONObject jsonObjectLecture = result.getJSONObject(i);
+                    int commentID = jsonObjectLecture.getInt("id");
+                    String commentClassroom = jsonObjectLecture.getString("classroom");
+                    String commentContent = jsonObjectLecture.getString("commentcontent");
+                    String reg_date = jsonObjectLecture.getString("reg_date");
+                    objDB.insertCommentOrIgnore(commentID, commentClassroom, commentContent,reg_date);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Cursor commentsCursor = objDB.getClassComments("401");
+            if (commentsCursor.getCount()>0) {
+                commentCursorAdapter todoAdapter = new commentCursorAdapter(class401Activity.this, commentsCursor);
+                listComments.setAdapter(todoAdapter);
+            }
         }
     }
 }

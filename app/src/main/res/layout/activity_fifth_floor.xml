@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_fifth_floor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +12,7 @@
         android:layout_height="match_parent"
         android:src="@mipmap/fifth_floor"
         android:id="@+id/imgvFifth"
-        />
+        android:contentDescription="@string/plan_of_the_fifth_floor" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -21,7 +20,7 @@
         android:visibility="invisible"
         android:src="@mipmap/fifth_floor_area"
         android:id="@+id/imgvFifthArea"
-        />
+        android:contentDescription="@string/plan_of_the_areas_on_the_fifth_floor" />
 
 
     <ImageView
@@ -30,7 +29,7 @@
         android:visibility="invisible"
         android:src="@mipmap/class_507_red"
         android:id="@+id/imgvClass507Red"
-        />
+        android:contentDescription="@string/availability_area_on_the_fifth_floor" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -38,7 +37,7 @@
         android:visibility="invisible"
         android:src="@mipmap/class_507_green"
         android:id="@+id/imgvClass507Green"
-        />
+        android:contentDescription="@string/availability_area_on_the_fifth_floor" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -46,7 +45,7 @@
         android:visibility="invisible"
         android:src="@mipmap/class_511_red"
         android:id="@+id/imgvclass511Red"
-        />
+        android:contentDescription="@string/availability_area_on_the_fifth_floor" />
 
 
     <ImageView
@@ -55,7 +54,7 @@
         android:visibility="invisible"
         android:src="@mipmap/class_511_green"
         android:id="@+id/imgvClass511Green"
-        />
+        android:contentDescription="@string/availability_area_on_the_fifth_floor" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -63,7 +62,7 @@
         android:visibility="invisible"
         android:src="@mipmap/class_521_red"
         android:id="@+id/imgvClass521Red"
-        />
+        android:contentDescription="@string/availability_area_on_the_fifth_floor" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -71,7 +70,7 @@
         android:visibility="invisible"
         android:src="@mipmap/class_521_green"
         android:id="@+id/imgvClass521Green"
-        />
+        android:contentDescription="@string/availability_area_on_the_fifth_floor" />
 
 
     <ImageView
@@ -80,7 +79,7 @@
         android:visibility="invisible"
         android:src="@mipmap/class_526_red"
         android:id="@+id/imgvClass526Red"
-        />
+        android:contentDescription="@string/availability_area_on_the_fifth_floor" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -88,6 +87,6 @@
         android:visibility="invisible"
         android:src="@mipmap/class_526_green"
         android:id="@+id/imgvClass526Green"
-        />
+        android:contentDescription="@string/availability_area_on_the_fifth_floor" />
 
 </RelativeLayout>

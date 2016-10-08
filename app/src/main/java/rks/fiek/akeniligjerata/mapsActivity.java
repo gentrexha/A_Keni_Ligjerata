@@ -18,7 +18,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.provider.Settings;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -43,7 +42,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -131,10 +129,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         String output = "json";
 
         // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-
-
-        return url;
+        return "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
     }
 
     /**
@@ -159,7 +154,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
 
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
 
             String line = "";
             while ((line = br.readLine()) != null)
@@ -168,7 +163,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             data = sb.toString();
-            Log.d("downloadUrl", data.toString());
+            Log.d("downloadUrl", data);
             br.close();
 
         }
@@ -199,7 +194,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
             {
                 // Fetching the data from web service
                 data = downloadUrl(url[0]);
-                Log.d("Background Task data", data.toString());
+                Log.d("Background Task data", data);
             }
             catch (Exception e)
             {
@@ -238,7 +233,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
             try
             {
                 jObject = new JSONObject(jsonData[0]);
-                Log.d("ParserTask",jsonData[0].toString());
+                Log.d("ParserTask", jsonData[0]);
                 DataParser parser = new DataParser();
                 Log.d("ParserTask", parser.toString());
 
@@ -421,7 +416,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(options);
 
         String url = getUrl();
-        Log.d("onMapClick", url.toString());
+        Log.d("onMapClick", url);
         FetchUrl FetchUrl = new FetchUrl();
 
         // Start downloading json data from Google Directions API

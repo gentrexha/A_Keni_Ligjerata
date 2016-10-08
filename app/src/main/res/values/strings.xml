@@ -46,4 +46,10 @@
     <string name="comments_526">Comments</string>
     <string name="your_comment_here_526">Your comment here</string>
     <string name="no_internet_info">We\'re sorry, but please connect to the internet so we can download the schedule for you!</string>
+    <string name="photo_of_the_fourth_floor_areas">Photo of the fourth floor areas</string>
+    <string name="photo_of_the_fourth_floor">Photo of the fourth floor</string>
+    <string name="availability_area_of_one_of_the_rooms_in_4th_floor">Availability area of one of the rooms in 4th floor</string>
+    <string name="plan_of_the_fifth_floor">Plan of the fifth floor</string>
+    <string name="plan_of_the_areas_on_the_fifth_floor">Plan of the areas on the fifth floor</string>
+    <string name="availability_area_on_the_fifth_floor">Availability area on the fifth floor</string>
 </resources>

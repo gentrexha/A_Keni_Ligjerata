@@ -66,11 +66,11 @@ public class fourthFloorActivity extends AppCompatActivity {
             Toast.makeText(this,"Schedule might be not updated! Please connect to the internet to update.",Toast.LENGTH_LONG).show();
         }
 
-        chooseRoom("411");
-        chooseRoom("401");
-        chooseRoom("408");
-        chooseRoom("414");
-        chooseRoom("415");
+        colorAvailability("411");
+        colorAvailability("401");
+        colorAvailability("408");
+        colorAvailability("414");
+        colorAvailability("415");
 
         imgv4thFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -288,11 +288,11 @@ public class fourthFloorActivity extends AppCompatActivity {
         }
     }
 
-    public void chooseRoom(String classnumber) {
+    public void colorAvailability(String classnumber) {
 
         Cursor objCursor = objDB.getTodayLecturesTimes(classnumber);
-        ArrayList<String> startTime = new ArrayList<String>();
-        ArrayList<String> endTime = new ArrayList<String>();
+        ArrayList<String> startTime = new ArrayList<>();
+        ArrayList<String> endTime = new ArrayList<>();
 
         int nrRows = objCursor.getCount();
 

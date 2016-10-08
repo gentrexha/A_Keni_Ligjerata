@@ -16,13 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONTokener;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -36,6 +31,7 @@ public class class411Activity extends AppCompatActivity {
     ListView listComments;
     EditText content;
     private static final String commentDBURL = "http://200.6.254.247/comments.php?t=1&classroom=";
+    DBHelper objDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +43,7 @@ public class class411Activity extends AppCompatActivity {
         listComments = (ListView)findViewById(R.id.listComments);
         content = (EditText)findViewById(R.id.editText);
 
-        DBHelper objDB = new DBHelper(this);
+        objDB = new DBHelper(this);
 
         Cursor lectureCursor = objDB.getTodayLectures("411");
         Cursor commentsCursor = objDB.getClassComments("411");
@@ -69,6 +65,14 @@ public class class411Activity extends AppCompatActivity {
         content.setText("");
         new InsertComment().execute("411",strContent);
         Toast.makeText(this,"Successfully posted comment!",Toast.LENGTH_SHORT).show();
+
+//        new fourthFloorActivity.RetrieveComments.execute();
+
+        Cursor commentsCursor = objDB.getClassComments("411");
+        if (commentsCursor.getCount()>0) {
+            commentCursorAdapter todoAdapter = new commentCursorAdapter(this, commentsCursor);
+            listComments.setAdapter(todoAdapter);
+        }
     }
 
     public class InsertComment extends AsyncTask<String,Void,Void> {
@@ -102,10 +106,6 @@ public class class411Activity extends AppCompatActivity {
                 objURLConnection.setDoInput(true);
                 objURLConnection.connect();
                 objInStream = objURLConnection.getInputStream();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }

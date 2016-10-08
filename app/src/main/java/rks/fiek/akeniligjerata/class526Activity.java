@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,11 +95,7 @@ public class class526Activity extends AppCompatActivity {
                 objURLConnection.setDoOutput(true);
                 objURLConnection.setDoInput(true);
                 objURLConnection.connect();
-                objInStream = objURLConnection.getInputStream();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
+                objURLConnection.getInputStream();
             } catch (IOException e) {
                 e.printStackTrace();
             }

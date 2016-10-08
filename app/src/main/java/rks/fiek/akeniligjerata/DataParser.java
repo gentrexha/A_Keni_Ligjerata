@@ -2,7 +2,7 @@ package rks.fiek.akeniligjerata;
 
 
 /**
- * Created by Refresh on 10/2/2016.
+ * Created by GentR on 10/2/2016 at 1:10 AM.
  */
 
 import com.google.android.gms.maps.model.LatLng;
@@ -56,9 +56,8 @@ public class DataParser {
                 }
             }
 
-        } catch (JSONException e) {
+        } catch (Exception e){
             e.printStackTrace();
-        }catch (Exception e){
         }
 
 

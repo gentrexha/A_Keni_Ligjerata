@@ -56,7 +56,7 @@
         <activity android:name=".class511Activity" />
         <activity android:name=".class521Activity" />
         <activity android:name=".class526Activity" />
-        <activity android:name=".noInternetActivitiy"></activity>
+        <activity android:name=".noInternetActivitiy" />
     </application>
 
 </manifest>

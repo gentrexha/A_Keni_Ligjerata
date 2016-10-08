@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,10 +63,10 @@ public class fifthFloorActivity extends AppCompatActivity {
         }
 
 
-        chooseRoom("507");
-        chooseRoom("511");
-        chooseRoom("521");
-        chooseRoom("526");
+        colorAvailability("507");
+        colorAvailability("511");
+        colorAvailability("521");
+        colorAvailability("526");
 
         imgvFifthFloor.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -220,11 +219,11 @@ public class fifthFloorActivity extends AppCompatActivity {
         }
     }
 
-    public void chooseRoom(String classnumber) {
+    public void colorAvailability(String classnumber) {
 
         Cursor objCursor = objDB.getTodayLecturesTimes(classnumber);
-        ArrayList<String> startTime = new ArrayList<String>();
-        ArrayList<String> endTime = new ArrayList<String>();
+        ArrayList<String> startTime = new ArrayList<>();
+        ArrayList<String> endTime = new ArrayList<>();
 
         int nrRows = objCursor.getCount();
 

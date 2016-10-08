@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_plan"
     android:layout_width="match_parent"
@@ -12,82 +11,94 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/fourth_floor_area"
-        android:id="@+id/imgvPlan_Area" />
+        android:id="@+id/imgvPlan_Area"
+        android:contentDescription="@string/photo_of_the_fourth_floor_areas" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@mipmap/fourth_floor_"
-        android:id="@+id/imgvPlan" />
+        android:id="@+id/imgvPlan"
+        android:contentDescription="@string/photo_of_the_fourth_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_401_green"
-        android:id="@+id/imgvClass401Green" />
+        android:id="@+id/imgvClass401Green"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_401_red"
-        android:id="@+id/imgvClass401Red" />
+        android:id="@+id/imgvClass401Red"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_408_green"
-        android:id="@+id/imgvClass408Green" />
+        android:id="@+id/imgvClass408Green"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_408_red"
-        android:id="@+id/imgvClass408Red" />
+        android:id="@+id/imgvClass408Red"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_411_green"
-        android:id="@+id/imgvClass411Green"/>
+        android:id="@+id/imgvClass411Green"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_411_red"
-        android:id="@+id/imgvClass411Red"/>
+        android:id="@+id/imgvClass411Red"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_414_green"
-        android:id="@+id/imgvClass414Green"/>
+        android:id="@+id/imgvClass414Green"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_414_red"
-        android:id="@+id/imgvClass414Red"/>
+        android:id="@+id/imgvClass414Red"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_415_green"
-        android:id="@+id/imgvClass415Green"/>
+        android:id="@+id/imgvClass415Green"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:src="@mipmap/class_415_red"
-        android:id="@+id/imgvClass415Red"/>
+        android:id="@+id/imgvClass415Red"
+        android:contentDescription="@string/availability_area_of_one_of_the_rooms_in_4th_floor" />
 
 </RelativeLayout>

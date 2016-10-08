@@ -1,7 +1,5 @@
 package rks.fiek.akeniligjerata;
 
-import android.test.ActivityInstrumentationTestCase2;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

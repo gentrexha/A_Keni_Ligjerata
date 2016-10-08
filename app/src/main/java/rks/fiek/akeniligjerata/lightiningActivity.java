@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 public class lightiningActivity extends AppCompatActivity {
 
-    private TextView txvInfo;
     private TextView txvInfo2;
     private float LightValue = 0;
 
@@ -22,7 +21,7 @@ public class lightiningActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lightining);
 
         Typeface tfBlackboard = Typeface.createFromAsset(getAssets(),"fonts/BlackBoard.ttf");
-        txvInfo = (TextView)findViewById(R.id.txvInfo);
+        TextView txvInfo = (TextView) findViewById(R.id.txvInfo);
         txvInfo.setTypeface(tfBlackboard);
 
         txvInfo2 = (TextView)findViewById(R.id.txvInfo2);

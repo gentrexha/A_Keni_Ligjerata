@@ -1,5 +1,6 @@
 package rks.fiek.akeniligjerata;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -164,6 +165,7 @@ public class class411Activity extends AppCompatActivity {
 
         // The bindView method is used to bind all data to a given view
         // such as setting the text on a TextView.
+        @SuppressLint("SetTextI18n") // String resource is extracted
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             // Find fields to populate in inflated template

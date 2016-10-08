@@ -67,7 +67,7 @@ class DBHelper extends SQLiteOpenHelper {
     public Cursor getTodayLecturesTimes(String classnumber) {
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
-        String day = new SimpleDateFormat("EEEE").format(date.getTime());
+        String day = new SimpleDateFormat("EEEE",Locale.ENGLISH).format(date.getTime());
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("select starttime,endtime from schedule where day='"+day+"' and classnumber='"+classnumber+"'",null);
     }

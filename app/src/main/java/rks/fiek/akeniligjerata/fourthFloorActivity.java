@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 //Reference:
 //http://stackoverflow.com/questions/1200621/how-to-declare-an-array
@@ -41,10 +42,6 @@ import java.util.Date;
 
 public class fourthFloorActivity extends AppCompatActivity {
 
-    // Variables
-    private ImageView imgv4thFloor;
-    private ImageView imgv4thFloor_Area;
-    private ImageView imageView;
     private DBHelper objDB;
     private static final String lecturesDBURL = "http://200.6.254.247/my-service.php";
     private static final String commentDBURL = "http://200.6.254.247/comments.php?t=0";
@@ -54,8 +51,8 @@ public class fourthFloorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth_floor);
 
-        imgv4thFloor = (ImageView) findViewById(R.id.imgvPlan);
-        imgv4thFloor_Area = (ImageView) findViewById(R.id.imgvPlan_Area);
+        ImageView imgv4thFloor = (ImageView) findViewById(R.id.imgvPlan);
+        ImageView imgv4thFloor_Area = (ImageView) findViewById(R.id.imgvPlan_Area);
         objDB = new DBHelper(this);
 
         if (isNetworkAvailable())
@@ -303,6 +300,7 @@ public class fourthFloorActivity extends AppCompatActivity {
         }
 
         objCursor.close();
+        ImageView imageView;
         if(nrRows < 1) {
             String nrClass = "imgvClass" + classnumber +"Green";
             int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
@@ -325,11 +323,11 @@ public class fourthFloorActivity extends AppCompatActivity {
                     String strStarttime = startTime.get(i);
                     String strEndtime = endTime.get(i);
 
-                    Date dtStarttime = new SimpleDateFormat("HH:mm:ss").parse(strStarttime);
+                    Date dtStarttime = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).parse(strStarttime);
                     Calendar cStarttime = Calendar.getInstance();
                     cStarttime.setTime(dtStarttime);
 
-                    Date dtEndtime = new SimpleDateFormat("HH:mm:ss").parse(strEndtime);
+                    Date dtEndtime = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).parse(strEndtime);
                     Calendar cEndtime = Calendar.getInstance();
                     cStarttime.setTime(dtEndtime);
 

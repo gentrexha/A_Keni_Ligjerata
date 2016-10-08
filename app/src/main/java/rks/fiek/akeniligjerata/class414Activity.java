@@ -1,5 +1,6 @@
 package rks.fiek.akeniligjerata;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -34,7 +35,6 @@ import java.net.URLEncoder;
 
 public class class414Activity extends AppCompatActivity {
 
-    private ListView list;
     private ListView listComments;
     private EditText content;
     private static final String commentDBURL = "http://200.6.254.247/comments.php?t=1&classroom=";
@@ -47,7 +47,7 @@ public class class414Activity extends AppCompatActivity {
         setContentView(R.layout.activity_class414);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        list = (ListView)findViewById(R.id.list);
+        ListView list = (ListView) findViewById(R.id.list);
         listComments = (ListView)findViewById(R.id.listComments);
         content = (EditText)findViewById(R.id.editText);
         objDB = new DBHelper(this);
@@ -170,6 +170,7 @@ public class class414Activity extends AppCompatActivity {
 
         // The bindView method is used to bind all data to a given view
         // such as setting the text on a TextView.
+        @SuppressLint("SetTextI18n") // String resource is extracted
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             // Find fields to populate in inflated template

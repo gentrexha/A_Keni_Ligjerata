@@ -19,7 +19,6 @@ import android.widget.Toast;
 public class mainActivity extends AppCompatActivity
 {
     private int locationRequestCode;
-    private TextView txvTitle;
     private DBHelper objDB;
     // float testLight = 15;
 
@@ -41,7 +40,7 @@ public class mainActivity extends AppCompatActivity
 
 
         Typeface tfBlackboard = Typeface.createFromAsset(getAssets(),"fonts/BlackBoard.ttf");
-        txvTitle = (TextView)findViewById(R.id.txvTitle);
+        TextView txvTitle = (TextView) findViewById(R.id.txvTitle);
         txvTitle.setTypeface(tfBlackboard);
     }
 

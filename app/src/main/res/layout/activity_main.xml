@@ -42,7 +42,7 @@
         android:id="@+id/btnTestLight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test_light"
+        android:text="@string/test_lightining"
         android:layout_below="@+id/btnRoom"
         android:layout_marginTop="46dp"
         android:layout_alignStart="@+id/btnMap"

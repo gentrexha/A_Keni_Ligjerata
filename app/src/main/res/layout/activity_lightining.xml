@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_no_internet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/customborder"
+    tools:context="rks.fiek.akeniligjerata.noInternetActivitiy">
+
+    <TextView
+        android:text="@string/here_you_can_test_the_lightining_of_a_room_based_on_your_phones_lightsensor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvInfo"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:fontFamily="sans-serif"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="@string/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txvInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:id="@+id/btnTestLight"
+        android:onClick="btnTestLightOnClick" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvInfo2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:fontFamily="sans-serif"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/btnTestLight"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

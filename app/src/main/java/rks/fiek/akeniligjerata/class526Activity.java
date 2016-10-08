@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -86,7 +84,6 @@ public class class526Activity extends AppCompatActivity {
 
             HttpURLConnection objURLConnection = null;
             URL objURL;
-            InputStream objInStream = null;
 
             try {
                 objURL = new URL(urlString.toString());

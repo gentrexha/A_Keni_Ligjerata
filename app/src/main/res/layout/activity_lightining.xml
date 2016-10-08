@@ -18,7 +18,7 @@
         android:textAlignment="center"
         android:paddingRight="30dp"
         android:paddingLeft="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="112dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
@@ -26,11 +26,11 @@
         android:text="@string/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txvInfo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="48dp"
         android:id="@+id/btnTestLight"
-        android:onClick="btnTestLightOnClick" />
+        android:onClick="btnTestLightOnClick"
+        android:layout_below="@+id/txvInfo"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:textAlignment="center"
         android:paddingRight="30dp"
         android:paddingLeft="30dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/btnTestLight"
         android:layout_alignParentStart="true" />
 

@@ -2,13 +2,12 @@ package rks.fiek.akeniligjerata;
 
 
 /**
- * Created by GentR on 10/2/2016 at 1:10 AM.
+ * Created by GentR on 10/2/2016 at 1:10 AM at 4:18 AM.
  */
 
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

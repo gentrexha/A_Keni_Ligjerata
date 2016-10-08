@@ -295,7 +295,9 @@ public class fourthFloorActivity extends AppCompatActivity {
             for (objCursor.moveToFirst(); !objCursor.isAfterLast(); objCursor.moveToNext()) {
                 // TO DO code here
                 startTime.add(objCursor.getString(0));
+                Log.d("STARTTIME", "colorAvailability: "+objCursor.getString(0));
                 endTime.add(objCursor.getString(1));
+                Log.d("ENDTIME", "colorAvailability: "+objCursor.getString(1));
             }
         }
 
@@ -315,15 +317,19 @@ public class fourthFloorActivity extends AppCompatActivity {
                 Date date = new Date();
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
-                int hour = cal.get(Calendar.HOUR);
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
                 int minutes = cal.get(Calendar.MINUTE);
                 int seconds = cal.get(Calendar.SECOND);
+                Log.d("CURRENTIME", "colorAvailability: "+hour+minutes+seconds);
                 String[] parts1 = startTime.get(i).split(":");
                 int[] NrStartTime = {Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), Integer.parseInt(parts1[2])};
+                Log.d("AFTER SPLITTING", "colorAvailability: "+NrStartTime[0]+" "+NrStartTime[1]);
                 String[] parts2 = endTime.get(i).split(":");
                 int[] NrEndTime = {Integer.parseInt(parts2[0]), Integer.parseInt(parts2[1]), Integer.parseInt(parts2[2])};
+
                 if(NrStartTime[0] <= hour && hour <= NrEndTime[0])
                 {
+                    Log.d("INFO", "Ora eshte brenda lecture");
                     if(NrStartTime[1] <= minutes && NrEndTime[1] <= minutes)
                     {
                         if(NrStartTime[2] <= seconds)

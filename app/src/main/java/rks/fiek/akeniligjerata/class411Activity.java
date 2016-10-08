@@ -34,7 +34,6 @@ import java.net.URLEncoder;
 
 public class class411Activity extends AppCompatActivity {
 
-    private ListView list;
     private ListView listComments;
     private EditText content;
     private static final String commentDBURL = "http://200.6.254.247/comments.php?t=1&classroom=";
@@ -47,7 +46,7 @@ public class class411Activity extends AppCompatActivity {
         setContentView(R.layout.activity_class411);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        list = (ListView)findViewById(R.id.list);
+        ListView list = (ListView) findViewById(R.id.list);
         listComments = (ListView)findViewById(R.id.listComments);
         content = (EditText)findViewById(R.id.editText);
 

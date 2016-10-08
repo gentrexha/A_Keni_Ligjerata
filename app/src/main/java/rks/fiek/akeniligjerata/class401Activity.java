@@ -34,7 +34,6 @@ import java.net.URLEncoder;
 
 public class class401Activity extends AppCompatActivity {
 
-    private ListView list;
     private ListView listComments;
     private EditText content;
     private DBHelper objDB;
@@ -48,7 +47,7 @@ public class class401Activity extends AppCompatActivity {
         setContentView(R.layout.activity_class401);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        list = (ListView)findViewById(R.id.list);
+        ListView list = (ListView) findViewById(R.id.list);
         listComments = (ListView)findViewById(R.id.listComments);
         content = (EditText)findViewById(R.id.editText);
         objDB = new DBHelper(this);

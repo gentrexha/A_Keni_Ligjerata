@@ -245,7 +245,7 @@ public class fifthFloorActivity extends AppCompatActivity {
                 Date date = new Date();
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
-                int hour = cal.get(Calendar.HOUR);
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
                 int minutes = cal.get(Calendar.MINUTE);
                 int seconds = cal.get(Calendar.SECOND);
                 String[] parts1 = startTime.get(i).split(":");

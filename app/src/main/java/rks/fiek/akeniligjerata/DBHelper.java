@@ -18,13 +18,13 @@ class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "akeniligjerata.db";
     private static final int DB_VERSION = 1;
 
-    public static final String SCHEDULE_TABLE_NAME = "schedule";
-    public static final String SCHEDULE_COLUMN_ID = "_id";
-    public static final String SCHEDULE_COLUMN_DAY = "day";
-    public static final String SCHEDULE_COLUMN_CLASSNUMBER = "classnumber";
-    public static final String SCHEDULE_COLUMN_CLASSNAME = "classname";
-    public static final String SCHEDULE_COLUMN_STARTTIME = "starttime";
-    public static final String SCHEDULE_COLUMN_ENDTIME = "endtime";
+    private static final String SCHEDULE_TABLE_NAME = "schedule";
+    private static final String SCHEDULE_COLUMN_ID = "_id";
+    private static final String SCHEDULE_COLUMN_DAY = "day";
+    private static final String SCHEDULE_COLUMN_CLASSNUMBER = "classnumber";
+    private static final String SCHEDULE_COLUMN_CLASSNAME = "classname";
+    private static final String SCHEDULE_COLUMN_STARTTIME = "starttime";
+    private static final String SCHEDULE_COLUMN_ENDTIME = "endtime";
 
     public DBHelper(Context context) {
         super(context, DB_NAME , null, DB_VERSION);
@@ -67,7 +67,7 @@ class DBHelper extends SQLiteOpenHelper {
     public Cursor getTodayLecturesTimes(String classnumber) {
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
-        String day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
+        String day = new SimpleDateFormat("EEEE").format(date.getTime());
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("select starttime,endtime from schedule where day='"+day+"' and classnumber='"+classnumber+"'",null);
     }
@@ -83,16 +83,6 @@ class DBHelper extends SQLiteOpenHelper {
         String day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("select * from schedule where day='"+day+"' and classnumber='"+classnumber+"'",null);
-    }
-
-    public Cursor dropLectures() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("DROP table " + SCHEDULE_TABLE_NAME,null );
-    }
-
-    public Cursor deleteLecture(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("delete from schedule where _id='"+id+"'",null );
     }
 
     @Override

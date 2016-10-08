@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -158,7 +157,7 @@ public class class507Activity extends AppCompatActivity {
             String reg_date = cursor.getString(cursor.getColumnIndexOrThrow("reg_date"));
             // Populate fields with extracted properties
             txvComment.setText(content);
-            txvDate.setText("Commetend on: "+reg_date);
+            txvDate.setText(getString(R.string.commented_on)+reg_date);
         }
     }
 }

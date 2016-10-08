@@ -43,6 +43,8 @@ import android.annotation.TargetApi;
         import android.widget.OverScroller;
         import android.widget.Scroller;
 
+// Suppressed all warnings for TouchImageView because it's an API
+@SuppressWarnings("ALL")
 public class TouchImageView extends ImageView {
 
     private static final String DEBUG = "DEBUG";

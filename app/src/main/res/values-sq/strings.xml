@@ -13,7 +13,7 @@
     <string name="comments_526">Kommentet</string>
     <string name="do_you_have_classes">A keni ligjerata?</string>
     <string name="find_me_a_room">Gjej nje dhome</string>
-    <string name="no_internet_info" />
+    <string name="no_internet_info" >Kerkojme ndjese, por ju lutem kycuni ne internet ashtu qe te shkarkojme orarin per ju.</string>
     <string name="post_401">Shto</string>
     <string name="post_408">Shto</string>
     <string name="post_411">Shto</string>
@@ -42,4 +42,18 @@
     <string name="your_comment_here_511">Kommenti juaj ketu</string>
     <string name="your_comment_here_521">Kommenti juaj ketu</string>
     <string name="your_comment_here_526">Kommenti juaj ketu</string>
+    <string name="verygood_lightning">Ndricimi eshte shume i mire ne kete salle!</string>
+    <string name="test_lightining">Testo ndricimin</string>
+    <string name="test">Testo!</string>
+    <string name="bad_lightning">Ndricimi eshte shume i keq ne kete salle!</string>
+    <string name="availability_area_on_the_fifth_floor">Disponueshmeria e sallav ne katin e peste</string>
+    <string name="availability_area_of_one_of_the_rooms_in_4th_floor">Disponueshmeria e njeres prej sallav ne katin e katert</string>
+    <string name="commented_on">"Kommentuar me: "</string>
+    <string name="good_lightning">Ndricimi eshte i mire ne kete salle!</string>
+    <string name="here_you_can_test_the_lightining_of_a_room_based_on_your_phones_lightsensor">Ketu ju mund ta testoni ndricimin e salles ne baze te sensor te ndricimit te telefonit tuaj.</string>
+    <string name="ok_lightning">Ndricimi eshte OK ne kete salle!</string>
+    <string name="photo_of_the_fourth_floor">Foto e katit te katert</string>
+    <string name="photo_of_the_fourth_floor_areas">Foto e areave ne katin e katert</string>
+    <string name="plan_of_the_areas_on_the_fifth_floor">Plani i areave ne katin e peste</string>
+    <string name="plan_of_the_fifth_floor">Plani i katit te peste</string>
 </resources>

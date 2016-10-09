@@ -14,7 +14,9 @@ switching rooms all day instead of learning, so we created an interactive applic
 choosing the right room based on the schedule, where others can also add comments about those rooms and share their experience.
 
 # How the app works:
-Placeholder
+The application consists of the main screen where the user can open maps to find the way to the faculty building, a lightning test and the fourth floor image where all the available classes are shown and are colored green if they're free and red if they're not. Here is where all the magic happens, the application sends a request for the schedule and comments to a web service middleman which outputs the information from a remote database in a JSON format and stores them in the local database if internet is available, else it checks if they're any previous versions of the schedule and notifies the user that the schedule is outdated but continues working and disables commenting. If the user is using the application for the first time and hasn’t updated the schedule at all the user can’t continue to the interactive floor plan.
+
+
 ![test](https://github.com/gentrexha/A_Keni_Ligjerata/blob/master/Description_Images/fourth_floor_.png)
 ![test2](https://github.com/gentrexha/A_Keni_Ligjerata/blob/master/Description_Images/fourth_floor_area.png)
 
@@ -32,4 +34,5 @@ Considering that each year almost 8000 new students register at the University o
 
 # References:
 [1] UP Registration Contest, http://www.uni-pr.edu/Lajmet/Konkurs-per-pranimin-e-studenteve-ne-vitin-e-pare-.aspx
+
 [2] SHOULD YOU BUILD AN IOS APP OR ANDROID APP?, https://crew.co/how-to-build-an-online-business/build-ios-app-or-android-app/

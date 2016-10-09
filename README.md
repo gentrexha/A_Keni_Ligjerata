@@ -14,6 +14,8 @@ choosing the right room based on the schedule, also others can add comments abou
 
 # How the app works:
 Placeholder
+![alt tag](http://imgur.com/Flq45sD)
+![alt tag](http://imgur.com/hR1FnR9)
 
 # Group experience:
 Placeholder

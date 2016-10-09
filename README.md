@@ -14,8 +14,8 @@ choosing the right room based on the schedule, also others can add comments abou
 
 # How the app works:
 Placeholder
-![alt tag](http://imgur.com/Flq45sD)
-![alt tag](http://imgur.com/hR1FnR9)
+![test](https://github.com/gentrexha/A_Keni_Ligjerata/blob/master/Description_Images/fourth_floor_.png)
+![test2](https://github.com/gentrexha/A_Keni_Ligjerata/blob/master/Description_Images/fourth_floor_area.png)
 
 # Group experience:
 Placeholder

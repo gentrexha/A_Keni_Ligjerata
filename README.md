@@ -40,4 +40,4 @@ Considering that each year almost 8000 new students register at the University o
 # References:
 [1] UP Registration Contest, http://www.uni-pr.edu/Lajmet/Konkurs-per-pranimin-e-studenteve-ne-vitin-e-pare-.aspx
 
-[2] SHOULD YOU BUILD AN IOS APP OR ANDROID APP?, https://crew.co/how-to-build-an-online-business/build-ios-app-or-android-app/
+[2] Should you build an iOS or Android App?, https://crew.co/how-to-build-an-online-business/build-ios-app-or-android-app/

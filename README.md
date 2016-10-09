@@ -3,6 +3,7 @@ Assignment 2 for Mobile Development Theory
 
 ### Group members:
 Florim Hamiti, 998904
+
 Gent Rexha, 998903
 
 # Description:
@@ -10,7 +11,7 @@ Back at our university in Kosovo the library has a limited number of seats and m
 get taken in the morning so if you want to study in the university you have to find a seat in
 one of the many lecture rooms. These often are used by teachers for lectures so often end up
 switching rooms all day instead of learning, so we created an interactive application which helps
-choosing the right room based on the schedule, also others can add comments about those rooms.
+choosing the right room based on the schedule, where others can also add comments about those rooms and share their experience.
 
 # How the app works:
 Placeholder
@@ -23,5 +24,8 @@ The biggest problem for us doing this project was on finding a way on how to app
 # What's next:
 The first thing which come to mind by extending the application is to make it work for other faculties as well, since all of them share the same problem. Adding a rating system for the comment section would be good as well since at the moment comments only get sorted by date and a method to identify owners of comments through Facebook or Google+ identification. From a maintenance perspective the comment system needs to be updated to be able to be moderated more easily and the schedule retrieving method needs to be automated because inserting all of the lecture rows in the database by hand can get very frustrating.
 
-# Discussion:
+# Business and financial opportunities:
+Placeholder
+
+# Risks associated with the application:
 Placeholder

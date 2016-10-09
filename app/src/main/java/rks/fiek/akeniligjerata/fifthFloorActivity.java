@@ -50,7 +50,7 @@ public class fifthFloorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fifth_floor);
 
         ImageView imgvFifthFloor = (ImageView) findViewById(R.id.imgvFifth);
-        ImageView imgvFifthFloorArea = (ImageView) findViewById(R.id.imgvFifthArea);
+        // ImageView imgvFifthFloorArea = (ImageView) findViewById(R.id.imgvFifthArea);
 
         objDB = new DBHelper(this);
 
@@ -73,7 +73,7 @@ public class fifthFloorActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         final int x = (int) motionEvent.getX();
                         final int y = (int) motionEvent.getY();
-                        int touch_color = getHotspotColor(R.id.imgvFifthArea, x, y);
+                        int touch_color = getHotspotColor(x, y);
                         int tolerance = 25;
                         if (closeMatch(Color.BLUE, touch_color, tolerance)) {
                             Log.d("TOUCH", "Touched the screen at" + x + " and " + y);
@@ -109,8 +109,8 @@ public class fifthFloorActivity extends AppCompatActivity {
 
     }
 
-    private int getHotspotColor(int hotspotId, int x, int y) {
-        ImageView img = (ImageView) findViewById (hotspotId);
+    private int getHotspotColor(int x, int y) {
+        ImageView img = (ImageView) findViewById (R.id.imgvFifthArea);
         img.setDrawingCacheEnabled(true);
         Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
         img.setDrawingCacheEnabled(false);
@@ -138,7 +138,7 @@ public class fifthFloorActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             this.mException = null;
-            progressDialog = progressDialog.show(fifthFloorActivity.this,
+            progressDialog = ProgressDialog.show(fifthFloorActivity.this,
                     "Loading schedule...","Please wait while the schedule is downloading", true);
         }
 
@@ -246,9 +246,6 @@ public class fifthFloorActivity extends AppCompatActivity {
                     Date date = new Date();
                     Calendar now = Calendar.getInstance();
                     now.setTime(date);
-                    int hour = now.get(Calendar.HOUR_OF_DAY);
-                    int minutes = now.get(Calendar.MINUTE);
-                    int seconds = now.get(Calendar.SECOND);
 
                     String strStarttime = startTime.get(i);
                     String strEndtime = endTime.get(i);

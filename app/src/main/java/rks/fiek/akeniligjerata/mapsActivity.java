@@ -38,7 +38,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -53,7 +52,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationListener {
 
     private GoogleMap mMap;
-    private ArrayList<LatLng> MarkerPoints;
+    // private ArrayList<LatLng> MarkerPoints;
     // Provides the entry point to Google Play services.
     private GoogleApiClient mGoogleApiClient;
     // Represents a geographical location.
@@ -62,6 +61,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
     // Stores parameters for requests to the FusedLocationProviderApi.
     private LocationRequest mLocationRequest;
     // App-defined int constant
+    @SuppressWarnings("unused")
     private int locationRequestCode;
 
     @Override
@@ -79,7 +79,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         // Initializing
-        MarkerPoints = new ArrayList<>();
+        // MarkerPoints = new ArrayList<>();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -136,11 +136,10 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * A method to download json data from url
      */
-    private String downloadUrl(String strUrl) throws IOException
-    {
+    private String downloadUrl(String strUrl) {
         String data = "";
-        InputStream iStream = null;
-        HttpURLConnection urlConnection = null;
+        InputStream iStream;
+        HttpURLConnection urlConnection;
         try {
             URL url = new URL(strUrl);
 
@@ -166,18 +165,13 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
             data = sb.toString();
             Log.d("downloadUrl", data);
             br.close();
+            iStream.close();
+            urlConnection.disconnect();
 
         }
         catch (Exception e)
         {
             Log.d("Exception", e.toString());
-        }
-        finally
-        {
-            if(iStream != null)
-                iStream.close();
-            if (urlConnection != null)
-                urlConnection.disconnect();
         }
         return data;
     }
@@ -401,7 +395,7 @@ public class mapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerPoints.add(myLocation);
+        // MarkerPoints.add(myLocation);
 
         // Creating MarkerOptions
         MarkerOptions options = new MarkerOptions();

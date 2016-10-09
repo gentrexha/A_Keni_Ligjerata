@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 @RunWith(JUnit4.class)
 public class fourthFloorActivityTest {
 
-    fourthFloorActivity myTest;
+    private fourthFloorActivity myTest;
     @Before
     public void setUp() throws Exception
     {

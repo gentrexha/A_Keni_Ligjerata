@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 @RunWith(JUnit4.class)
 public class fifthFloorActivityTest {
 
-    fifthFloorActivity myTest;
+    private fifthFloorActivity myTest;
     @Before
     public void setUp() throws Exception {
         myTest = new fifthFloorActivity();

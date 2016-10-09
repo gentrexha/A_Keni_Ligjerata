@@ -52,7 +52,7 @@ public class fourthFloorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fourth_floor);
 
         ImageView imgv4thFloor = (ImageView) findViewById(R.id.imgvPlan);
-        ImageView imgv4thFloor_Area = (ImageView) findViewById(R.id.imgvPlan_Area);
+        // ImageView imgv4thFloor_Area = (ImageView) findViewById(R.id.imgvPlan_Area);
         objDB = new DBHelper(this);
 
         if (isNetworkAvailable())
@@ -73,7 +73,7 @@ public class fourthFloorActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         final int x = (int) motionEvent.getX();
                         final int y = (int) motionEvent.getY();
-                        int touch_color = getHotspotColor(R.id.imgvPlan_Area, x, y);
+                        int touch_color = getHotspotColor(x, y);
                         int tolerance = 25;
                         if (closeMatch(Color.BLUE, touch_color, tolerance)) {
                             Intent intFifthFloor = new Intent(getApplicationContext(), fifthFloorActivity.class);
@@ -106,8 +106,8 @@ public class fourthFloorActivity extends AppCompatActivity {
         });
     }
 
-    private int getHotspotColor(int hotspotId, int x, int y) {
-        ImageView img = (ImageView) findViewById(hotspotId);
+    private int getHotspotColor(int x, int y) {
+        ImageView img = (ImageView) findViewById(R.id.imgvPlan_Area);
         img.setDrawingCacheEnabled(true);
         Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
         img.setDrawingCacheEnabled(false);
@@ -128,14 +128,14 @@ public class fourthFloorActivity extends AppCompatActivity {
 
     public class RetrieveSchedule extends AsyncTask<Void, Void, JSONArray> {
 
-        ProgressDialog progressDialog;
+        ProgressDialog objProgressDialog;
         Exception mException;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             this.mException = null;
-            progressDialog = progressDialog.show(fourthFloorActivity.this,
+            objProgressDialog = ProgressDialog.show(fourthFloorActivity.this,
                     "Loading schedule...","Please wait while the schedule is downloading", true);
         }
 
@@ -184,7 +184,7 @@ public class fourthFloorActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONArray result) {
             super.onPostExecute(result);
-            progressDialog.dismiss();
+            objProgressDialog.dismiss();
 
             if (this.mException != null) {
                 Log.e("JSON Exception", this.mException.toString());
@@ -316,9 +316,6 @@ public class fourthFloorActivity extends AppCompatActivity {
                     Date date = new Date();
                     Calendar now = Calendar.getInstance();
                     now.setTime(date);
-                    int hour = now.get(Calendar.HOUR_OF_DAY);
-                    int minutes = now.get(Calendar.MINUTE);
-                    int seconds = now.get(Calendar.SECOND);
 
                     String strStarttime = startTime.get(i);
                     String strEndtime = endTime.get(i);

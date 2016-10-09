@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 public class mainActivity extends AppCompatActivity
 {
+    @SuppressWarnings("unused")
     private int locationRequestCode;
     private DBHelper objDB;
     // float testLight = 15;

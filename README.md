@@ -18,10 +18,10 @@ Placeholder
 ![test2](https://github.com/gentrexha/A_Keni_Ligjerata/blob/master/Description_Images/fourth_floor_area.png)
 
 # Group experience:
-Placeholder
+The biggest problem for us doing this project was on finding a way on how to approach developing the application, we spent a lot of time in researching for different application architectures which would best suit our needs. Since we wanted that all of the classes availability to be displayed in one picture, because nobody likes reading big list of schedules just to find out if the class is free or not, we had to draw the floor plans our self. We spent a lot of time on developing an architecture to sync the schedule between the local database and the online one, so even if the user isn’t connected to the internet the application would still work.
 
 # What's next:
-Placeholder
+The first thing which come to mind by extending the application is to make it work for other faculties as well, since all of them share the same problem. Adding a rating system for the comment section would be good as well since at the moment comments only get sorted by date and a method to identify owners of comments through Facebook or Google+ identification. From a maintenance perspective the comment system needs to be updated to be able to be moderated more easily and the schedule retrieving method needs to be automated because inserting all of the lecture rows in the database by hand can get very frustrating.
 
-# Discussion???
+# Discussion:
 Placeholder

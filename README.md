@@ -14,11 +14,16 @@ switching rooms all day instead of learning, so we created an interactive applic
 choosing the right room based on the schedule, where others can also add comments about those rooms and share their experience.
 
 # How the app works:
-The application consists of the main screen where the user can open maps to find the way to the faculty building, a lightning test and the fourth floor image where all the available classes are shown and are colored green if they're free and red if they're not. Here is where all the magic happens, the application sends a request for the schedule and comments to a web service middleman which outputs the information from a remote database in a JSON format and stores them in the local database if internet is available, else it checks if they're any previous versions of the schedule and notifies the user that the schedule is outdated but continues working and disables commenting. If the user is using the application for the first time and hasn’t updated the schedule at all the user can’t continue to the interactive floor plan.
+The application consists of the main screen where the user can open maps to find the way to the faculty building, a lightning test and the fourth floor image where all the available classes are shown and are colored green if they're free and red if they're not. 
+
+Here is where all the magic happens, the application sends a request for the schedule and comments to a web service middleman which outputs the information from a remote database in a JSON format and the app stores the JSON objects in the local database if internet is available, else it checks if they're any previous versions of the schedule and notifies the user that the schedule is outdated but continues working while disabling commenting. If the user is using the application for the first time and hasn’t updated the schedule at all the user can’t continue to the interactive floor plan.
+
+The fourth floor image is made interactive by implementing an invisible copy of the fourth floor plan but where the rooms that we want to be touchable by the user are colored differently, so basically when the user touches the first image it gets the x and y coordinates and gets the color of the invisible plan on that exact pixel, if it matches any of our set colors based on the color that was clicked a different room activity is opened.  
+
+![Fourth Floor](https://github.com/gentrexha/A_Keni_Ligjerata/blob/master/Description_Images/fourth_floor_.png)
+![Fourth Floor Color Hotspots](https://github.com/gentrexha/A_Keni_Ligjerata/blob/master/Description_Images/fourth_floor_area.png)
 
 
-![test](https://github.com/gentrexha/A_Keni_Ligjerata/blob/master/Description_Images/fourth_floor_.png)
-![test2](https://github.com/gentrexha/A_Keni_Ligjerata/blob/master/Description_Images/fourth_floor_area.png)
 
 # Group experience:
 The biggest problem for us doing this project was on finding a way on how to approach developing the application, we spent a lot of time in researching for different application architectures which would best suit our needs. Since we wanted that all of the classes availability to be displayed in one picture, because nobody likes reading big list of schedules just to find out if the class is free or not, we had to draw the floor plans our self. We spent a lot of time on developing an architecture to sync the schedule between the local database and the online one, so even if the user isn’t connected to the internet the application would still work.

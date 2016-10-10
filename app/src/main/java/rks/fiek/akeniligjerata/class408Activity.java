@@ -33,8 +33,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class class408Activity extends AppCompatActivity {
+/**
+ * Created by ${USER} on ${DATE}
+ */
 
+public class class408Activity extends AppCompatActivity {
+    // Local class variables
     private ListView listComments;
     private EditText content;
     private DBHelper objDB;
@@ -85,6 +89,7 @@ public class class408Activity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
+    // Updates local db for just newly insterted comment and refreshes the listview
     private class InsertComment extends AsyncTask<String,Void,Void> {
 
         @Override

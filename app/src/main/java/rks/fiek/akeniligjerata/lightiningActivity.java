@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * Created by ${USER} on ${DATE}
+ */
+
 public class lightiningActivity extends AppCompatActivity {
 
     private TextView txvInfo2;

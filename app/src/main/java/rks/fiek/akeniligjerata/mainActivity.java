@@ -16,6 +16,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Created by ${USER} on ${DATE}
+ */
+
 public class mainActivity extends AppCompatActivity
 {
     @SuppressWarnings("unused")

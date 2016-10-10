@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * Created by ${USER} on ${DATE}
+ */
+
 public class noInternetActivitiy extends AppCompatActivity {
 
     @Override

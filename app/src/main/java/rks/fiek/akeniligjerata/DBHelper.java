@@ -14,6 +14,10 @@ import java.util.Locale;
 // References:
 // http://www.androidauthority.com/use-sqlite-store-data-app-599743/
 
+/**
+ * Created by ${USER} on ${DATE}
+ */
+
 class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "akeniligjerata.db";
     private static final int DB_VERSION = 1;

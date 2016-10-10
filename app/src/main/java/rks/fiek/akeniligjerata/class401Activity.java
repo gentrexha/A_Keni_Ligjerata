@@ -33,8 +33,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class class401Activity extends AppCompatActivity {
+/**
+ * Created by ${USER} on ${DATE}
+ */
 
+public class class401Activity extends AppCompatActivity {
+    // Local class variables
     private ListView listComments;
     private EditText content;
     private DBHelper objDB;
@@ -80,6 +84,7 @@ public class class401Activity extends AppCompatActivity {
         Toast.makeText(this,"Please connect to the internet to post comments.", Toast.LENGTH_LONG).show();
     }
 
+    // Updates local db for just newly insterted comment and refreshes the listview
     private class InsertComment extends AsyncTask<String,Void,Void> {
 
         @Override

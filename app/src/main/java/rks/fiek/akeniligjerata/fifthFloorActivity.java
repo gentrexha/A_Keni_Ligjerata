@@ -39,6 +39,10 @@ import java.util.Locale;
 //http://stackoverflow.com/questions/3481828/how-to-split-a-string-in-java
 //http://stackoverflow.com/questions/13397709/android-hide-imageview
 
+/**
+ * Created by ${USER} on ${DATE}
+ */
+
 public class fifthFloorActivity extends AppCompatActivity {
 
     private DBHelper objDB;

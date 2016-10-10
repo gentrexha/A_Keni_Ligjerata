@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Created by ${USER} on ${DATE}
+ */
+
 class DataParser {
 
     /** Receives a JSONObject and returns a list of lists containing latitude and longitude */

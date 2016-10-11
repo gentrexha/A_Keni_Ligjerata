@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,6 +62,13 @@ public class fifthFloorActivity extends AppCompatActivity {
         if (isNetworkAvailable())
         {
             new RetrieveSchedule().execute();
+        }
+        else {
+            Toast.makeText(this,"Schedule might be not updated! Please connect to the internet to update.",Toast.LENGTH_LONG).show();
+            colorAvailability("507");
+            colorAvailability("511");
+            colorAvailability("521");
+            colorAvailability("526");
         }
 
 
@@ -260,16 +268,16 @@ public class fifthFloorActivity extends AppCompatActivity {
 
                     Date dtEndtime = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).parse(strEndtime);
                     Calendar cEndtime = Calendar.getInstance();
-                    cStarttime.setTime(dtEndtime);
+                    cEndtime.setTime(dtEndtime);
 
                     if (now.after(cStarttime.getTime()) && now.before(cEndtime.getTime())) {
-                        String nrClass = "imgvClass" + classnumber + "Green";
+                        String nrClass = "imgvClass" + classnumber + "Red";
                         int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
                         imageView = (ImageView) findViewById(resID);
                         imageView.setVisibility(View.VISIBLE);
                     }
                     else {
-                        String nrClass = "imgvClass" + classnumber + "Red";
+                        String nrClass = "imgvClass" + classnumber + "Green";
                         int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
                         imageView = (ImageView) findViewById(resID);
                         imageView.setVisibility(View.VISIBLE);

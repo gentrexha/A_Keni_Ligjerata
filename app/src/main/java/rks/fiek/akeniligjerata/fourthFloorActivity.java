@@ -1,22 +1,23 @@
 package rks.fiek.akeniligjerata;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.joda.time.LocalTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,12 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 //Reference:
 //http://stackoverflow.com/questions/1200621/how-to-declare-an-array
@@ -66,6 +62,11 @@ public class fourthFloorActivity extends AppCompatActivity {
         }
         else {
             Toast.makeText(this,"Schedule might be not updated! Please connect to the internet to update.",Toast.LENGTH_LONG).show();
+            colorAvailability("411");
+            colorAvailability("401");
+            colorAvailability("408");
+            colorAvailability("414");
+            colorAvailability("415");
         }
 
 
@@ -317,34 +318,27 @@ public class fourthFloorActivity extends AppCompatActivity {
             for (int i = 0; i < numberOfRows; i++)
             {
                 try {
-                    Date date = new Date();
-                    Calendar now = Calendar.getInstance();
-                    now.setTime(date);
+                    LocalTime now = LocalTime.now();
 
                     String strStarttime = startTime.get(i);
                     String strEndtime = endTime.get(i);
 
-                    Date dtStarttime = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).parse(strStarttime);
-                    Calendar cStarttime = Calendar.getInstance();
-                    cStarttime.setTime(dtStarttime);
+                    LocalTime ltStarttime = new LocalTime(strStarttime);
+                    LocalTime ltEndtime = new LocalTime(strEndtime);
 
-                    Date dtEndtime = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).parse(strEndtime);
-                    Calendar cEndtime = Calendar.getInstance();
-                    cStarttime.setTime(dtEndtime);
-
-                    if (now.after(cStarttime.getTime()) && now.before(cEndtime.getTime())) {
-                        String nrClass = "imgvClass" + classnumber + "Green";
-                        int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
-                        imageView = (ImageView) findViewById(resID);
-                        imageView.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    if (now.isAfter(ltStarttime) && now.isBefore(ltEndtime)) {
                         String nrClass = "imgvClass" + classnumber + "Red";
                         int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
                         imageView = (ImageView) findViewById(resID);
                         imageView.setVisibility(View.VISIBLE);
                     }
-                } catch (ParseException e) {
+                    else {
+                        String nrClass = "imgvClass" + classnumber + "Green";
+                        int resID = getResources().getIdentifier(nrClass, "id", getPackageName());
+                        imageView = (ImageView) findViewById(resID);
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
